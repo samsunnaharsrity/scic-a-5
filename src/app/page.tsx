@@ -1,65 +1,137 @@
-import Image from "next/image";
+import React from "react";
+import HeroSection from "@/app/components/hero-section";
+import {
+  Code,
+  Shield,
+  Zap,
+  CheckCircle,
+  Database,
+  Cpu,
+  BarChart3,
+  Play
+} from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="flex-1 bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-50 transition-colors duration-300">
+      
+      {/* HERO SECTION */}
+      <HeroSection />
+
+      {/* AGENTS FEATURES SECTION */}
+      <section className="py-20 border-t border-zinc-200/50 dark:border-zinc-800/50 bg-white dark:bg-zinc-950/20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-4xl mb-4">
+              Pre-built Specialists Ready To Go
+            </h2>
+            <p className="text-zinc-600 dark:text-zinc-400 text-sm sm:text-base leading-relaxed">
+              No need to build from scratch. Launch pre-configured agents to accelerate your development, support, and business workflows instantly.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: <Code className="w-6 h-6 text-violet-600 dark:text-violet-400" />,
+                title: "Developer Agent",
+                desc: "Write unit tests, analyze pull requests, and optimize component performance. Integrates with GitHub & GitLab."
+              },
+              {
+                icon: <Database className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />,
+                title: "Data Indexer",
+                desc: "Ingest CSV, PDFs, Notion pages, and database tables. Provides a vector-based knowledge query system for your AI bots."
+              },
+              {
+                icon: <Shield className="w-6 h-6 text-purple-600 dark:text-purple-400" />,
+                title: "Guardrails Gatekeeper",
+                desc: "Filter unsafe content, protect API credentials, verify prompt compliance, and enforce privacy standards automatically."
+              }
+            ].map((feature, idx) => (
+              <div
+                key={idx}
+                className="p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:border-violet-500/50 dark:hover:border-violet-500/30 hover:shadow-xl hover:shadow-violet-500/5 transition-all duration-300 group"
+              >
+                <div className="w-12 h-12 rounded-xl bg-violet-50 dark:bg-violet-950/30 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                  {feature.icon}
+                </div>
+                <h3 className="text-base font-bold text-zinc-900 dark:text-white mb-2">{feature.title}</h3>
+                <p className="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">{feature.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* WHY CHOOSE US SCROLLING TEST SECTION */}
+      <section className="py-20 border-t border-zinc-200/50 dark:border-zinc-800/50 bg-zinc-50 dark:bg-zinc-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white mb-6">
+                Why Teams Choose AgenticAI for Production workloads
+              </h2>
+              <p className="text-zinc-650 dark:text-zinc-400 text-sm leading-relaxed mb-8">
+                Unlike wrappers, our platform uses autonomous execution loops that run on isolated serverless workers, ensuring complete stability, speed, and safety.
+              </p>
+              <div className="space-y-4">
+                {[
+                  "Serverless compute with automatic memory management",
+                  "Built-in guardrails preventing looping resource consumption",
+                  "Deep telemetry logs showing token metrics and performance analytics",
+                  "Instant integrations with Slack, Discord, HubSpot, and GitHub"
+                ].map((point, i) => (
+                  <div key={i} className="flex items-start gap-2.5">
+                    <CheckCircle className="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" />
+                    <span className="text-xs sm:text-sm text-zinc-700 dark:text-zinc-300 font-medium">{point}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { icon: <Zap className="w-5 h-5" />, title: "Sub-second response", val: "940ms" },
+                { icon: <BarChart3 className="w-5 h-5" />, title: "Tokens per second", val: "12,500" },
+                { icon: <Cpu className="w-5 h-5" />, title: "Active AI workflows", val: "24.5k" },
+                { icon: <Play className="w-5 h-5" />, title: "Server Uptime", val: "99.99%" }
+              ].map((stat, i) => (
+                <div key={i} className="p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 shadow-sm flex flex-col gap-1.5">
+                  <div className="text-violet-600 dark:text-violet-400">{stat.icon}</div>
+                  <span className="text-2xl font-extrabold tracking-tight text-zinc-900 dark:text-white mt-2">{stat.val}</span>
+                  <span className="text-[11px] text-zinc-500 dark:text-zinc-400 font-semibold uppercase tracking-wider">{stat.title}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* FINAL CALL TO ACTION CARD */}
+      <section className="py-20 lg:py-28 border-t border-zinc-200/50 dark:border-zinc-800/50 bg-white dark:bg-zinc-950/20">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative rounded-3xl bg-gradient-to-tr from-violet-600 to-indigo-700 text-white p-8 sm:p-12 lg:p-16 overflow-hidden shadow-xl text-center">
+            {/* Soft backdrop decorations */}
+            <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full blur-2xl -z-10" />
+            <div className="absolute bottom-0 left-0 w-60 h-60 bg-white/5 rounded-full blur-2xl -z-10" />
+            
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+              Get Started with AgenticAI Today
+            </h2>
+            <p className="text-violet-100 text-sm sm:text-base leading-relaxed mb-8 max-w-xl mx-auto">
+              Unlock the power of autonomous AI workflow execution. No credit card required. Cancel anytime.
+            </p>
+            <a
+              href="/signup"
+              className="inline-flex items-center gap-2 px-7 py-4 rounded-xl text-sm font-bold bg-white text-violet-700 hover:bg-zinc-50 transition-colors shadow-lg shadow-black/10 active:scale-[0.98] transition-all"
+            >
+              <span>Build Your First Agent</span>
+              <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+    </main>
   );
 }
