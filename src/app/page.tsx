@@ -12,11 +12,12 @@ import {
   ArrowRight
 
 } from "lucide-react";
+import Testimonials from "./components/testimonials";
 
 export default function Home() {
   return (
     <main className="flex-1 bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-50 transition-colors duration-300">
-      
+
       {/* HERO SECTION */}
       <HeroSection />
 
@@ -109,23 +110,25 @@ export default function Home() {
         </div>
       </section>
 
-<section className="py-20 lg:py-28">
-  <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="relative rounded-3xl bg-gradient-to-r from-purple-600 via-indigo-600 to-pink-500 text-white p-10 sm:p-12 lg:p-16 overflow-hidden shadow-2xl text-center ring-1 ring-white/10 backdrop-blur-lg">
-      {/* Decorative glow circles */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-72 h-72 bg-purple-400/20 rounded-full blur-3xl -z-10" />
-      <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight mb-4">
-        AI for Everyone, Everywhere
-      </h2>
-      <p className="text-purple-100 text-sm sm:text-base leading-relaxed mb-8 max-w-xl mx-auto">
-        Whether you are a student, developer, marketer or business owner, our AI tools help you work faster.
-      </p>
-      <button className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-white text-purple-700 font-semibold hover:bg-purple-50 transition-colors shadow-lg shadow-purple-500/20">
-        Start Exploring AI Tools
-      </button>
-    </div>
-  </div>
-</section>
+      <section className="py-20 lg:py-28">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative rounded-3xl bg-gradient-to-r from-purple-600 via-indigo-600 to-pink-500 text-white p-10 sm:p-12 lg:p-16 overflow-hidden shadow-2xl text-center ring-1 ring-white/10 backdrop-blur-lg">
+            {/* Decorative glow circles */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-72 h-72 bg-purple-400/20 rounded-full blur-3xl -z-10" />
+            <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight mb-4">
+              AI for Everyone, Everywhere
+            </h2>
+            <p className="text-purple-100 text-sm sm:text-base leading-relaxed mb-8 max-w-xl mx-auto">
+              Whether you are a student, developer, marketer or business owner, our AI tools help you work faster.
+            </p>
+            <button className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-white text-purple-700 font-semibold hover:bg-purple-50 transition-colors shadow-lg shadow-purple-500/20">
+              Start Exploring AI Tools
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* <Testimonials></Testimonials> */}
 
     </main>
   );
