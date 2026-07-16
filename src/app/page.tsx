@@ -8,7 +8,9 @@ import {
   Database,
   Cpu,
   BarChart3,
-  Play
+  Play,
+  ArrowRight
+
 } from "lucide-react";
 
 export default function Home() {
@@ -107,30 +109,23 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FINAL CALL TO ACTION CARD */}
-      <section className="py-20 lg:py-28 border-t border-zinc-200/50 dark:border-zinc-800/50 bg-white dark:bg-zinc-950/20">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="relative rounded-3xl bg-gradient-to-tr from-violet-600 to-indigo-700 text-white p-8 sm:p-12 lg:p-16 overflow-hidden shadow-xl text-center">
-            {/* Soft backdrop decorations */}
-            <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full blur-2xl -z-10" />
-            <div className="absolute bottom-0 left-0 w-60 h-60 bg-white/5 rounded-full blur-2xl -z-10" />
-            
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-              Get Started with AgenticAI Today
-            </h2>
-            <p className="text-violet-100 text-sm sm:text-base leading-relaxed mb-8 max-w-xl mx-auto">
-              Unlock the power of autonomous AI workflow execution. No credit card required. Cancel anytime.
-            </p>
-            <a
-              href="/signup"
-              className="inline-flex items-center gap-2 px-7 py-4 rounded-xl text-sm font-bold bg-white text-violet-700 hover:bg-zinc-50 transition-colors shadow-lg shadow-black/10 active:scale-[0.98] transition-all"
-            >
-              <span>Build Your First Agent</span>
-              <ArrowRight className="w-4 h-4" />
-            </a>
-          </div>
-        </div>
-      </section>
+<section className="py-20 lg:py-28">
+  <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="relative rounded-3xl bg-gradient-to-r from-purple-600 via-indigo-600 to-pink-500 text-white p-10 sm:p-12 lg:p-16 overflow-hidden shadow-2xl text-center ring-1 ring-white/10 backdrop-blur-lg">
+      {/* Decorative glow circles */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-72 h-72 bg-purple-400/20 rounded-full blur-3xl -z-10" />
+      <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight mb-4">
+        AI for Everyone, Everywhere
+      </h2>
+      <p className="text-purple-100 text-sm sm:text-base leading-relaxed mb-8 max-w-xl mx-auto">
+        Whether you are a student, developer, marketer or business owner, our AI tools help you work faster.
+      </p>
+      <button className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-white text-purple-700 font-semibold hover:bg-purple-50 transition-colors shadow-lg shadow-purple-500/20">
+        Start Exploring AI Tools
+      </button>
+    </div>
+  </div>
+</section>
 
     </main>
   );
