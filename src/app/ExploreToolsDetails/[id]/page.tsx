@@ -39,7 +39,7 @@ async function getTool(id: string): Promise<Tool> {
 
 
 
-export default async function ToolDetailsPage({
+export default async function ExploreToolDetailsPage({
   params,
 }: {
   params: Promise<{ id: string }>;
@@ -182,17 +182,23 @@ export default async function ToolDetailsPage({
 
 
 
-            <button
-            className="
-            mt-8
-            bg-violet-600
-            text-white
-            py-3
-            rounded-xl
-            "
-            >
-              Use This AI Tool
-            </button>
+<Link
+ href={`/ai-tools/${tool.title
+ .toLowerCase()
+ .replaceAll(" ","-")}`}
+ className="
+ mt-8
+ block
+ text-center
+ bg-violet-600
+ text-white
+ py-3
+ rounded-xl
+ hover:bg-violet-700
+ "
+>
+ Use This AI Tool
+</Link>
 
 
           </div>

@@ -20,6 +20,7 @@ const aiTools = [
     icon: Bot,
     href: "/ai-tools/chat",
     color: "bg-violet-100 text-violet-600",
+    available: true,
   },
   {
     id: 2,
@@ -29,42 +30,43 @@ const aiTools = [
     icon: Sparkles,
     href: "/ai-tools/content-generator",
     color: "bg-pink-100 text-pink-600",
+    available: true,
   },
   {
     id: 3,
     title: "AI Document Analyzer",
-    description:
-      "Upload documents and get summaries, key points and insights.",
+    description: "Upload documents and get summaries and insights.",
     icon: FileText,
-    href: "/ai-tools/document-analyzer",
+    href: "#",
     color: "bg-blue-100 text-blue-600",
+    available: false,
   },
   {
     id: 4,
     title: "AI Recommendation",
-    description:
-      "Receive personalized AI tool recommendations based on your needs.",
+    description: "Receive personalized AI recommendations.",
     icon: Lightbulb,
-    href: "/ai-tools/recommendation",
+    href: "#",
     color: "bg-amber-100 text-amber-600",
+    available: false,
   },
   {
     id: 5,
     title: "AI Data Analyzer",
-    description:
-      "Analyze CSV, Excel or JSON data with AI-powered insights.",
+    description: "Analyze CSV, Excel or JSON data.",
     icon: BarChart3,
-    href: "/ai-tools/data-analyzer",
+    href: "#",
     color: "bg-green-100 text-green-600",
+    available: false,
   },
   {
     id: 6,
     title: "AI Auto Tagging",
-    description:
-      "Automatically generate tags and categories for your content.",
+    description: "Automatically generate tags.",
     icon: Tags,
-    href: "/ai-tools/auto-tagging",
+    href: "#",
     color: "bg-cyan-100 text-cyan-600",
+    available: false,
   },
 ];
 
@@ -109,13 +111,21 @@ export default function AIToolsPage() {
                   {tool.description}
                 </p>
 
-                <Link
-                  href={tool.href}
-                  className="mt-6 inline-flex items-center gap-2 text-violet-600 font-semibold hover:gap-3 transition-all"
-                >
-                  Open Tool
-                  <ArrowRight size={18} />
-                </Link>
+<div className="mt-6">
+  {tool.available ? (
+    <Link
+      href={tool.href}
+      className="inline-flex items-center gap-2 text-violet-600 font-semibold hover:gap-3 transition-all"
+    >
+      Open Tool
+      <ArrowRight size={18} />
+    </Link>
+  ) : (
+    <span className="inline-flex items-center rounded-full bg-slate-200 dark:bg-slate-800 px-3 py-1 text-sm font-medium text-slate-600 dark:text-slate-400">
+      Coming Soon
+    </span>
+  )}
+</div>
               </div>
             );
           })}
