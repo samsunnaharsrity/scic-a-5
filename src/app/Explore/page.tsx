@@ -37,6 +37,10 @@ export default function ExplorePage() {
 const [loading, setLoading] = useState(true);
 
 
+const [categoryFilter,setCategoryFilter] = useState("All");
+const [sort,setSort] = useState("default");
+
+
 useEffect(() => {
   const fetchTools = async () => {
     try {
@@ -58,18 +62,54 @@ useEffect(() => {
 }, []);
 
 
-const filteredTools = useMemo(() => {
-  return tools.filter((tool) => {
-    const matchesSearch = tool.title
-      .toLowerCase()
-      .includes(search.toLowerCase());
+const filteredTools = useMemo(()=>{
 
-    const matchesPrice =
-      priceFilter === "All" || tool.price === priceFilter;
+let result = tools.filter((tool)=>{
 
-    return matchesSearch && matchesPrice;
-  });
-}, [tools, search, priceFilter]);
+const searchMatch =
+tool.title
+.toLowerCase()
+.includes(search.toLowerCase());
+
+
+const priceMatch =
+priceFilter==="All" ||
+tool.price===priceFilter;
+
+
+const categoryMatch =
+categoryFilter==="All" ||
+tool.category===categoryFilter;
+
+
+
+return searchMatch && priceMatch && categoryMatch;
+
+
+});
+
+
+
+if(sort==="rating"){
+result.sort((a,b)=>b.rating-a.rating);
+}
+
+
+if(sort==="name"){
+result.sort((a,b)=>a.title.localeCompare(b.title));
+}
+
+
+return result;
+
+
+},[
+tools,
+search,
+priceFilter,
+categoryFilter,
+sort
+]);
 
 const totalTools = filteredTools.length;
 
@@ -129,6 +169,87 @@ const totalTools = filteredTools.length;
               </button>
             ))}
           </div>
+
+          {/* Category Filter */}
+
+<select
+
+value={categoryFilter}
+
+onChange={(e)=>setCategoryFilter(e.target.value)}
+
+className="
+px-5
+py-3
+rounded-xl
+bg-white
+dark:bg-slate-900
+border
+border-slate-200
+"
+
+>
+
+<option value="All">
+All Category
+</option>
+
+<option value="Productivity">
+Productivity
+</option>
+
+<option value="Writing">
+Writing
+</option>
+
+<option value="Analytics">
+Analytics
+</option>
+
+<option value="Developer">
+Developer
+</option>
+
+</select>
+
+
+
+
+
+{/* Sorting */}
+
+<select
+
+value={sort}
+
+onChange={(e)=>setSort(e.target.value)}
+
+className="
+px-5
+py-3
+rounded-xl
+bg-white
+dark:bg-slate-900
+border
+border-slate-200
+"
+
+>
+
+<option value="default">
+Sort By
+</option>
+
+<option value="rating">
+Highest Rating
+</option>
+
+<option value="name">
+Name A-Z
+</option>
+
+
+</select>
         </div>
 
         {/* Cards Grid (No Sidebar) */}

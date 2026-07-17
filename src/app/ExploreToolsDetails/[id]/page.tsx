@@ -278,7 +278,27 @@ text-violet-600
 
 
 <Link
-href={`/ai-tools/${tool._id}`}
+href={
+tool.title === "AI Chat Assistant"
+? "/ai-tools/chat"
+
+: tool.title === "AI Content Generator"
+? "/ai-tools/content-generator"
+
+: tool.title === "AI Document Analyzer"
+? "/ai-tools/document-analyzer"
+
+: tool.title === "AI Recommendation"
+? "/ai-tools/recommendation"
+
+: tool.title === "AI Data Analyzer"
+? "/ai-tools/data-analyzer"
+
+: tool.title === "AI Auto Tagging"
+? "/ai-tools/auto-tagging"
+
+:"#"
+}
 className="
 mt-8
 bg-violet-600
