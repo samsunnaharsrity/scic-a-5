@@ -190,6 +190,12 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
           position: relative;
           overflow: hidden;
         }
+          .dark .reg-bg{
+  background:
+    radial-gradient(circle at top left, rgba(109,76,255,.15), transparent 35%),
+    radial-gradient(circle at bottom right, rgba(109,76,255,.08), transparent 35%),
+    #020617;
+}
         .reg-bg::before {
           content: '';
           position: fixed;
@@ -205,7 +211,7 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
           bottom: -180px; right: -120px;
           width: 500px; height: 500px;
           border-radius: 50%;
-          background: background: radial-gradient(circle, rgba(5,150,105,0.06) 0%, transparent 70%);
+          background: radial-gradient(circle, rgba(5,150,105,0.06) 0%, transparent 70%);
           pointer-events: none;
         }
 
@@ -220,6 +226,12 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
           z-index: 1;
           box-shadow: 0 4px 24px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04);
         }
+          .dark .reg-card{
+    background:rgba(15,23,42,.95);
+    border:1px solid #334155;
+    color:#f8fafc;
+    box-shadow:0 25px 60px rgba(0,0,0,.45);
+}
         .reg-card::before {
           content: '';
           position: absolute;
@@ -256,9 +268,15 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
           color: #111827; letter-spacing: -0.02em;
           margin-bottom: 0.35rem;
         }
+          .dark .card-header h1{
+              color:#fff;
+          }
         .card-header p { font-size: 0.83rem; color: #6b7280; }
         .card-header p strong {
         color: #6D4CFF;
+        }
+        .dark .card-header p{
+            color:#94a3b8;
         }
 
         /* Fields */
@@ -270,6 +288,9 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
           color: #6b7280;
           margin-bottom: 0.45rem;
         }
+          .dark .field label{
+    color:#cbd5e1;
+}
         .field input {
           width: 100%; height: 46px;
           background: #f9fafb;
@@ -280,7 +301,15 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
           outline: none;
           transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
         }
+          .dark .field input{
+    background:#1e293b;
+    border:1px solid #334155;
+    color:white;
+}
         .field input::placeholder { color: #d1d5db; }
+        .dark .field input::placeholder{
+    color:#64748b;
+}
         .field input:focus {
           border-color: #6D4CFF;
           background: #ffffff;
@@ -420,8 +449,14 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         /* Divider */
         .divider { display: flex; align-items: center; gap: 12px; margin: 1.25rem 0; }
         .divider-line { flex: 1; height: 1px; background: #e5e7eb; }
+        .dark .divider-line{
+    background:#334155;
+}
         .divider span { font-size: 0.71rem; color: #9ca3af; letter-spacing: 0.08em; text-transform: uppercase; background: #ffffff; padding: 0 4px; }
-
+        .dark .divider span{
+    background:#0f172a;
+    color:#94a3b8;
+}
         /* Google */
         .btn-google {
           width: 100%; height: 46px;
@@ -434,15 +469,32 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
           display: flex; align-items: center; justify-content: center; gap: 10px;
           transition: all 0.2s;
         }
+          .dark .btn-google{
+    background:#1e293b;
+    border:1px solid #334155;
+    color:white;
+}
 .btn-google:hover{
 background:#F5F3FF;
 border-color:#C4B5FD;
+}
+.dark .btn-google:hover{
+    background:#273549;
+    border-color:#6D4CFF;
 }
 
         /* Footer */
         .card-footer { text-align: center; margin-top: 1.25rem; font-size: 0.8rem; color: #9ca3af; }
 .card-footer a{
 color:#6D4CFF;
+}
+
+.dark .card-footer{
+    color:#94a3b8;
+}
+
+.dark .card-footer a{
+    color:#a78bfa;
 }
         text-decoration: none; transition: color 0.2s; }
         .card-footer a:hover{
@@ -560,6 +612,7 @@ color:#5B3EF5;
 
               <div className="pass-wrap">
                 <input
+                name="confirmPassword"
                   type={showConfirm ? "text" : "password"}
                   value={confirmPassword}
                   onChange={(e) =>

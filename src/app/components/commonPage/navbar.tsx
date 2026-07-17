@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Bot,
@@ -22,6 +22,7 @@ import {
   MessageSquare,
   HelpCircle
 } from "lucide-react";
+import { authClient } from "@/lib/auth-client";
 
 interface NavLink {
   name: string;
@@ -79,6 +80,14 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+
+
+  const router = useRouter();
+
+const { data: session, isPending } = authClient.useSession();
+
+const user = session?.user;
   
   // Dropdown states
   const [notificationsOpen, setNotificationsOpen] = useState(false);
@@ -175,6 +184,22 @@ export default function Navbar() {
       notifications.map((n) => ({ ...n, read: true }))
     );
   };
+
+
+  const handleLogout = async () => {
+  try {
+    await authClient.signOut();
+
+    setAvatarOpen(false);
+
+    router.push("/login");
+
+    router.refresh();
+
+  } catch (error) {
+    console.error("Logout failed:", error);
+  }
+};
 
   return (
     <>
@@ -350,18 +375,36 @@ export default function Navbar() {
               <div className="h-6 w-[1px] bg-zinc-200 dark:bg-zinc-800" />
 
               {/* USER PROFILE AVATAR OR SIGNUP/LOGIN ACTIONS */}
-              <div className="relative flex items-center gap-2" ref={avatarRef}>
+              {user && (
+              <div 
+                className="relative flex items-center gap-2" 
+                ref={avatarRef}
+              >
                 
                 {/* User Avatar Action */}
-                <button
-                  onClick={() => setAvatarOpen(!avatarOpen)}
-                  className="flex items-center gap-2 group"
-                  title="User Profile Menu"
-                >
-                  <div className="relative w-8.5 h-8.5 rounded-full ring-2 ring-violet-500/20 dark:ring-violet-500/10 group-hover:ring-violet-500/50 dark:group-hover:ring-violet-500/40 transition-all duration-300 overflow-hidden flex items-center justify-center bg-gradient-to-tr from-violet-500 to-indigo-500 text-white font-semibold text-xs leading-none shadow-sm shadow-violet-500/10">
-                    JD
-                  </div>
-                </button>
+    <button
+      onClick={() => setAvatarOpen(!avatarOpen)}
+      className="flex items-center gap-2 group"
+    >
+      <div className="relative w-8.5 h-8.5 rounded-full ring-2 ring-violet-500/20 dark:ring-violet-500/10 group-hover:ring-violet-500/50 dark:group-hover:ring-violet-500/40 transition-all duration-300 overflow-hidden flex items-center justify-center bg-gradient-to-tr from-violet-500 to-indigo-500 text-white font-semibold text-xs leading-none shadow-sm shadow-violet-500/10">
+
+        {user?.image ? (
+          <img
+            src={user.image}
+            alt={user.name || "User"}
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          user?.name
+            ?.split(" ")
+            .map((n)=>n[0])
+            .join("")
+            .slice(0,2)
+            .toUpperCase()
+        )}
+
+      </div>
+    </button>
 
                 {/* Avatar Menu Dropdown */}
                 <AnimatePresence>
@@ -374,11 +417,21 @@ export default function Navbar() {
                       className="absolute right-0 mt-2 top-full w-56 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-xl z-50 overflow-hidden"
                     >
                       <div className="p-4 border-b border-zinc-100 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/50">
-                        <p className="font-semibold text-sm text-zinc-900 dark:text-white">Jane Doe</p>
-                        <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 truncate">jane@agenticai.com</p>
+                        <p className="font-semibold text-sm text-zinc-900 dark:text-white">
+                        {user?.name || "User"}
+                      </p>
+
+                      <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5 truncate">
+                        {user?.email || ""}
+                      </p>
                         <div className="mt-2.5 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-violet-100 dark:bg-violet-950/50 border border-violet-200/50 dark:border-violet-850/50 text-[10px] font-semibold text-violet-700 dark:text-violet-400">
                           <Sparkles className="w-2.5 h-2.5" />
                           <span>Premium Pro</span>
+                          {/* <span>
+                          {user?.role === "admin"
+                            ? "Admin"
+                            : "Free Plan"}
+                         </span> */}
                         </div>
                       </div>
                       
@@ -411,14 +464,11 @@ export default function Navbar() {
 
                       <div className="border-t border-zinc-100 dark:border-zinc-800 p-1">
                         <button
-                          onClick={() => {
-                            setAvatarOpen(false);
-                            alert("Signed out successfully (Demo)");
-                          }}
-                          className="w-full flex items-center gap-2 px-3 py-2 text-xs text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/20 rounded-lg transition-colors font-medium"
+                        onClick={handleLogout}
+                        className="w-full flex items-center gap-2 px-3 py-2 text-xs text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/20 rounded-lg transition-colors font-medium"
                         >
-                          <LogOut className="w-4 h-4" />
-                          <span>Sign Out</span>
+                        <LogOut className="w-4 h-4" />
+                        <span>Sign Out</span>
                         </button>
                       </div>
                     </motion.div>
@@ -426,8 +476,10 @@ export default function Navbar() {
                 </AnimatePresence>
 
               </div>
+              )}
 
               {/* Login & Sign Up CTA (Hidden on small viewports) */}
+              {!user && (
               <div className="hidden md:flex items-center gap-2 ml-2">
                 <Link
                   href="/login"
@@ -442,7 +494,7 @@ export default function Navbar() {
                   Sign Up
                 </Link>
               </div>
-
+)}
               {/* Mobile Menu Toggle Button */}
               <button
                 onClick={() => setMobileMenuOpen(true)}

@@ -50,6 +50,34 @@ const SigninPage = () => {
     }
   };
 
+
+
+  // demo credentials
+
+  const demoEmail = "demo@example.com";
+const demoPassword = "Demo@123456";
+
+const copyText = async (text: string, label: string) => {
+  await navigator.clipboard.writeText(text);
+  toast.success(`${label} copied`);
+};
+
+const fillDemoCredentials = () => {
+  (
+    document.querySelector(
+      'input[name="email"]'
+    ) as HTMLInputElement
+  ).value = demoEmail;
+
+  (
+    document.querySelector(
+      'input[name="password"]'
+    ) as HTMLInputElement
+  ).value = demoPassword;
+
+  toast.success("Demo credentials filled");
+};
+
   return (
     <section className="min-h-screen flex items-center justify-center px-4 bg-[#F8F9FC] dark:bg-[#020617] transition-colors duration-300 py-20">
       {/* Card - Background White in light, slate-900 in dark */}
@@ -58,6 +86,9 @@ const SigninPage = () => {
           <h1 className="text-3xl font-bold text-slate-900 dark:text-white">Welcome Back</h1>
           <p className="mt-2 text-slate-600 dark:text-slate-400">Sign in to your account to continue</p>
         </div>
+
+
+
 
         <form onSubmit={handleSubmit} className="space-y-5">
           {/* Email Field */}
@@ -123,12 +154,46 @@ const SigninPage = () => {
           Continue with Google
         </button>
 
+        {/* Demo Credentials */}
+<div className="my-5 rounded-xl border border-[#6D4CFF]/20 bg-[#F5F3FF] dark:bg-slate-800 px-4 py-3">
+  <div className="flex items-center justify-between">
+    <div>
+      <p className="text-sm font-semibold text-slate-900 dark:text-white">
+        🚀 Demo Account
+      </p>
+      <p className="text-xs text-slate-600 dark:text-slate-400">
+        demo@example.com | Demo@123456
+      </p>
+    </div>
+
+    <div className="flex gap-2">
+      <button
+        type="button"
+        onClick={() => copyText(demoEmail, "Email")}
+        className="text-xs text-[#6D4CFF] hover:underline"
+      >
+        Copy
+      </button>
+
+      <button
+        type="button"
+        onClick={fillDemoCredentials}
+        className="rounded-md bg-[#6D4CFF] px-3 py-1.5 text-xs text-white hover:bg-[#5B3EF5]"
+      >
+        Fill
+      </button>
+    </div>
+  </div>
+</div>
+
         {/* Footer */}
         <p className="text-center text-sm text-slate-600 dark:text-slate-400 mt-6">
           Don't have an account?{" "}
           <Link href="/register" className="font-medium text-[#6D4CFF] hover:underline">
             Create Account
           </Link>
+
+
         </p>
       </div>
     </section>

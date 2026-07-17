@@ -1,17 +1,19 @@
 import { betterAuth } from "better-auth";
-import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { MongoClient } from "mongodb";
+import { mongodbAdapter } from "better-auth/adapters/mongodb";
+import { admin } from "better-auth/plugins";
 
-const client = new MongoClient(process.env.MONGODB_URI!);
+const client = new MongoClient(
+  process.env.MONGODB_URI || "mongodb://localhost:27017/database"
+);
 
-await client.connect();
-
-const db = client.db(process.env.AUTH_DB_NAME);
+const db = client.db(process.env.AUTH_DB_NAME || "database");
 
 export const auth = betterAuth({
-  database: mongodbAdapter(db, {
-    client,
-  }),
+  trustedOrigins: [
+    "http://localhost:3000",
+    "https://scic-a3.vercel.app",
+  ],
 
   emailAndPassword: {
     enabled: true,
@@ -19,11 +21,28 @@ export const auth = betterAuth({
 
   socialProviders: {
     google: {
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     },
   },
 
-  secret: process.env.BETTER_AUTH_SECRET,
-  baseURL: process.env.BETTER_AUTH_URL,
+  database: mongodbAdapter(db, {
+    client,
+  }),
+
+  user: {
+    additionalFields: {
+      plan: {
+        type: "string",
+        required: false,
+        defaultValue: "free",
+      },
+    },
+  },
+
+  plugins: [
+    admin({
+      defaultRole: "user",
+    }),
+  ],
 });
