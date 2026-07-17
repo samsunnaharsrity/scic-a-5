@@ -1,7 +1,8 @@
 "use client";
 
-import AIChatAssistant from "@/components/AIChatAssistant";
+
 import { Bot, Sparkles, MessageSquare } from "lucide-react";
+import AIChatAssistant from "../ai-chat-assistant/page";
 
 export default function AIChatPage() {
   return (

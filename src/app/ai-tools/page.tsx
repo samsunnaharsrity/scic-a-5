@@ -10,6 +10,9 @@ import {
   Lightbulb,
   ArrowRight,
 } from "lucide-react";
+// import { useSession } from "@/lib/auth-client";
+// import { useRouter } from "next/navigation";
+// import { useEffect } from "react";
 
 const aiTools = [
   {
@@ -71,6 +74,38 @@ const aiTools = [
 ];
 
 export default function AIToolsPage() {
+
+
+  // const router = useRouter();
+
+  // const { data: session, isPending } = useSession();
+
+
+  // useEffect(() => {
+
+  //   if(!isPending && !session){
+  //     router.push("/login");
+  //   }
+
+  // }, [session, isPending, router]);
+
+
+
+  // if(isPending){
+  //   return (
+  //     <div className="min-h-screen flex items-center justify-center">
+  //       Loading...
+  //     </div>
+  //   );
+  // }
+
+
+  // if(!session){
+  //   return null;
+  // }
+
+
+
   return (
     <section className="min-h-screen bg-slate-50 dark:bg-slate-950 py-14">
       <div className="max-w-7xl mx-auto px-4">
