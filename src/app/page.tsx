@@ -1,5 +1,4 @@
 import React from "react";
-import HeroSection from "@/app/components/hero-section";
 import {
   Code,
   Shield,
@@ -12,7 +11,9 @@ import {
   ArrowRight
 
 } from "lucide-react";
-import Testimonials from "./components/testimonials";
+import HeroSection from "./components/commonPage/hero-section";
+import Testimonials from "./components/commonPage/testimonials";
+
 
 export default function Home() {
   return (
@@ -20,6 +21,13 @@ export default function Home() {
 
       {/* HERO SECTION */}
       <HeroSection />
+      {/* <TrustedCompanies /> */}
+      {/* <StatsSection /> */}
+      {/* <AIFeatures /> */}
+      {/* <HowItWorks /> */}
+      {/* <WorkflowDemo /> */}
+      {/* <CTASection /> */}
+
 
       {/* AGENTS FEATURES SECTION */}
       <section className="py-20 border-t border-zinc-200/50 dark:border-zinc-800/50 bg-white dark:bg-zinc-950/20">
@@ -110,9 +118,12 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-20 lg:py-28">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="relative rounded-3xl bg-gradient-to-r from-purple-600 via-indigo-600 to-pink-500 text-white p-10 sm:p-12 lg:p-16 overflow-hidden shadow-2xl text-center ring-1 ring-white/10 backdrop-blur-lg">
+      <Testimonials />
+
+      {/* CTA */}
+      <section className="py-20 lg:py-20">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative rounded-3xl bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 text-white p-10 sm:p-12 lg:p-16 overflow-hidden shadow-2xl text-center ring-1 ring-white/10 backdrop-blur-lg">
             {/* Decorative glow circles */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-72 h-72 bg-purple-400/20 rounded-full blur-3xl -z-10" />
             <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight mb-4">
@@ -128,7 +139,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* <Testimonials></Testimonials> */}
 
     </main>
   );
