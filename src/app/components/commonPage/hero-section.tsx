@@ -47,7 +47,7 @@ export default function HeroSection() {
     <section
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative overflow-hidden pt-20 pb-20 lg:pt-28 lg:pb-28 border-b border-zinc-200/50 dark:border-zinc-800/50 transition-colors duration-300"
+      className="relative overflow-hidden pt-20 pb-20 lg:pt-2 lg:pb-10 border-b border-zinc-200/50 dark:border-zinc-800/50 transition-colors duration-300"
     >
       {/* Background Glows & Circles */}
       <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">

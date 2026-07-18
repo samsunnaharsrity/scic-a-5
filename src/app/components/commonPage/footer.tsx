@@ -30,8 +30,8 @@ export default function Footer() {
   const productLinks = [
     { name: "Features", href: "/features" },
     { name: "Pricing", href: "/pricing" },
-    { name: "Updates", href: "/updates" },
-    { name: "API Docs", href: "/api" }
+    { name: "Explore", href: "/Explore" },
+    { name: "AI Tools", href: "/ai-tools" },
   ];
 
   const companyLinks = [
