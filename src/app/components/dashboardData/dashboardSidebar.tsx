@@ -381,7 +381,7 @@ useEffect(() => {
 
 
 {/* AI sidebar card */}
-<div className="
+{/* <div className="
 mx-3 mt-4 
 rounded-2xl 
 bg-gradient-to-br
@@ -430,7 +430,7 @@ Open AI
 </button>
 
 
-</div>
+</div> */}
 
 
         {/* Navigation Section */}
