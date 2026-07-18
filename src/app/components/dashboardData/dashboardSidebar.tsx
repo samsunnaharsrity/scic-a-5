@@ -179,11 +179,6 @@ const userMenu: MenuItem[]=[
   icon:Wand2
 },
 
-{
-  label:"API Usage",
-  href:"/dashboard/user/api-usage",
-  icon:Activity
-},
 
 {
   label:"My Subscription",
