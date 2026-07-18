@@ -232,6 +232,7 @@ const [appName, setAppName] = useState("AgenticAI");
   const email = userData?.email || "No email connected";
   const image = userData?.image;
 
+
   //   console.log("session:", session);
   // console.log("user:", session.user);
   // console.log("userData:", userData);
