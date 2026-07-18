@@ -1,0 +1,498 @@
+"use client";
+
+import { useEffect, useState, useTransition } from "react";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import {
+  LayoutDashboard,
+  Users,
+  Hotel,
+  CalendarDays,
+  CreditCard,
+  MessageSquare,
+  Settings,
+  BarChart3,
+  User,
+  Heart,
+  LogOut,
+  Menu,
+  X,
+  LucideIcon,
+  Bot,
+  Sparkles,
+  TrendingUp,
+  Brain,
+  CalendarCheck,
+  Map,
+  FileText,
+  KeyRound,
+  Cpu,
+  Wand2,
+  Activity,
+  Receipt,
+} from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { signOut } from "@/lib/auth-client";
+
+interface UserProps {
+  role?: "admin" | "user" | string;
+  name?: string | null;
+  email?: string | null;
+  image?: string | null;
+}
+
+interface DashboardSidebarProps {
+  user?: UserProps | { user: UserProps } | any; 
+  session?: any;
+  onLogout?: () => Promise<void> | void; 
+}
+
+interface MenuItem {
+  label: string;
+  href: string;
+  icon: LucideIcon;
+}
+
+const adminMenu: MenuItem[] = [
+
+{
+  label:"Dashboard",
+  href:"/dashboard/admin",
+  icon:LayoutDashboard
+},
+
+{
+  label:"AI Control Center",
+  href:"/dashboard/admin/ai-center",
+  icon:Bot
+},
+
+{
+  label:"AI Agents",
+  href:"/dashboard/admin/agents",
+  icon:Brain
+},
+
+{
+  label:"Agent Training",
+  href:"/dashboard/admin/training",
+  icon:Sparkles
+},
+
+{
+  label:"AI Usage Analytics",
+  href:"/dashboard/admin/ai-analytics",
+  icon:BarChart3
+},
+
+{
+  label:"Model Management",
+  href:"/dashboard/admin/models",
+  icon:Cpu
+},
+
+{
+  label:"Prompt Management",
+  href:"/dashboard/admin/prompts",
+  icon:MessageSquare
+},
+
+{
+  label:"API Keys",
+  href:"/dashboard/admin/api-keys",
+  icon:KeyRound
+},
+
+{
+  label:"Users Management",
+  href:"/dashboard/admin/users",
+  icon:Users
+},
+
+{
+  label:"Subscriptions",
+  href:"/dashboard/admin/subscriptions",
+  icon:CreditCard
+},
+
+{
+  label:"Payments & Revenue",
+  href:"/dashboard/admin/revenue",
+  icon:TrendingUp
+},
+
+{
+  label:"Reports",
+  href:"/dashboard/admin/reports",
+  icon:FileText
+},
+
+{
+  label:"System Settings",
+  href:"/dashboard/admin/settings",
+  icon:Settings
+}
+
+];
+
+const userMenu: MenuItem[]=[
+
+{
+  label:"Dashboard",
+  href:"/dashboard/user",
+  icon:LayoutDashboard
+},
+
+{
+  label:"AI Chat Assistant",
+  href:"/dashboard/user/chat",
+  icon:Bot
+},
+
+{
+  label:"My AI Agents",
+  href:"/dashboard/user/agents",
+  icon:Brain
+},
+
+{
+  label:"Create Agent",
+  href:"/dashboard/user/create-agent",
+  icon:Sparkles
+},
+
+{
+  label:"AI Templates",
+  href:"/dashboard/user/templates",
+  icon:FileText
+},
+
+{
+  label:"Prompt Library",
+  href:"/dashboard/user/prompts",
+  icon:MessageSquare
+},
+
+{
+  label:"AI Playground",
+  href:"/dashboard/user/playground",
+  icon:Wand2
+},
+
+{
+  label:"API Usage",
+  href:"/dashboard/user/api-usage",
+  icon:Activity
+},
+
+{
+  label:"My Subscription",
+  href:"/dashboard/user/subscription",
+  icon:CreditCard
+},
+
+{
+  label:"Billing History",
+  href:"/dashboard/user/billing",
+  icon:Receipt
+},
+
+{
+  label:"Profile",
+  href:"/dashboard/user/profile",
+  icon:User
+},
+
+{
+  label:"Settings",
+  href:"/dashboard/user/settings",
+  icon:Settings
+}
+
+];
+
+export default function DashboardSidebar({ user, session, onLogout }: DashboardSidebarProps) {
+const [appName, setAppName] = useState("AgenticAI");
+
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const [open, setOpen] = useState(false);
+  const [isLoggingOut, startLogoutTransition] = useTransition();
+
+ 
+  const baseData = session || user;
+  const userData = baseData?.user ? baseData.user : baseData;
+  
+
+  const rawRole = userData?.role || "user";
+  const role = String(rawRole).toLowerCase().trim(); 
+  
+  const name = userData?.name || "Guest User";
+  const email = userData?.email || "No email connected";
+  const image = userData?.image;
+
+  //   console.log("session:", session);
+  // console.log("user:", session.user);
+  // console.log("userData:", userData);
+  // console.log("role:", role);
+
+  const menus = role === "admin" ? adminMenu : userMenu;
+
+const handleLogout = async () => {
+    startLogoutTransition(async () => {
+      try {
+        if (onLogout) {
+
+          await onLogout();
+        } else {
+          await signOut({
+            fetchOptions: {
+              onSuccess: () => {
+                router.push("/login");
+                router.refresh();
+              },
+            },
+          });
+        }
+      } catch (error) {
+        console.error("Logout failed:", error);
+      } finally {
+        setOpen(false);
+      }
+    });
+  };
+
+
+useEffect(() => {
+  const loadSettings = async () => {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/settings`,
+        {
+          cache: "no-store",
+        }
+      );
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setAppName(data.data?.siteName || data.siteName || "AgenticAI");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  loadSettings();
+
+  const handleSettingsUpdate = () => {
+    loadSettings();
+  };
+
+  window.addEventListener("settingsUpdated", handleSettingsUpdate);
+
+  return () => {
+    window.removeEventListener("settingsUpdated", handleSettingsUpdate);
+  };
+}, []);
+
+
+
+
+
+  return (
+    <>
+      {/* Mobile Toggle Button */}
+      <button
+        onClick={() => setOpen(!open)}
+        aria-label="Toggle Sidebar"
+        className="fixed bottom-6 right-6 z-50 rounded-xl bg-green-950 p-3 text-white shadow-xl transition-transform hover:scale-105 active:scale-95 lg:hidden"
+      >
+        {open ? <X size={20} /> : <Menu size={20} />}
+      </button>
+
+      {/* Backdrop Overlay for Mobile */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setOpen(false)}
+            className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden"
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Sidebar Layout CONTAINER */}
+      <aside
+        className={`fixed left-0 top-0 lg:top-20 z-40 flex h-full lg:h-[calc(100vh-6rem)] w-72 flex-col border-r bg-white dark:bg-neutral-950 border-slate-100 dark:border-neutral-900 shadow-2xl lg:shadow-none transition-transform duration-300 lg:sticky lg:translate-x-0
+        ${open ? "translate-x-0" : "-translate-x-full"}`}
+      >
+        {/* Header */}
+        <div className="flex items-center justify-between border-b p-3 border-slate-100 dark:border-neutral-900 shrink-0">
+          <div>
+            <h1 className="text-2xl font-black tracking-tight text-violet-600 dark:text-indigo-600">
+              {appName}
+            </h1>
+            <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-neutral-500">
+              {role} workspace
+            </p>
+          </div>
+
+          <button
+            onClick={() => setOpen(false)}
+            aria-label="Close Sidebar"
+            className="rounded-xl p-2 bg-slate-50 dark:bg-neutral-900 hover:bg-slate-100 dark:hover:bg-neutral-800 text-slate-500 dark:text-neutral-400 lg:hidden transition-colors"
+          >
+            <X size={18} />
+          </button>
+        </div>
+
+        {/* User Card Profile */}
+        <div className="border-b p-3 border-slate-100 dark:border-neutral-900 bg-slate-50/50 dark:bg-neutral-900/20 shrink-0">
+          <div className="flex items-center gap-3.5">
+            {image ? (
+              <img
+                src={image}
+                alt={name}
+                className="h-12 w-12 rounded-xl object-cover ring-2 ring-green-900/10 dark:ring-green-400/20"
+              />
+            ) : (
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-violet-600 to-indigo-600 text-base font-bold text-white shadow-md">
+                {name.charAt(0).toUpperCase()}
+              </div>
+            )}
+
+            <div className="overflow-hidden">
+              <h3 className="truncate font-semibold text-slate-900 dark:text-white text-sm">
+                {name}
+              </h3>
+              <p className="truncate text-xs text-slate-400 dark:text-neutral-500 mb-1">
+                {email}
+              </p>
+              <span className="inline-flex rounded-md bg-violet-900/10 dark:bg-indigo-500/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-violet-600 dark:text-indigo-400">
+                {role}
+              </span>
+            </div>
+          </div>
+        </div>
+
+
+{/* AI sidebar card */}
+<div className="
+mx-3 mt-4 
+rounded-2xl 
+bg-gradient-to-br
+from-violet-900
+to-indigo-700
+p-4
+text-white
+">
+
+
+<div className="flex gap-3 items-center">
+
+<Bot/>
+
+<div>
+
+<h3 className="font-bold">
+AI Assistant
+</h3>
+
+<p className="text-xs opacity-80">
+Smart insights available
+</p>
+
+
+</div>
+
+
+</div>
+
+
+<button
+className="
+mt-3
+w-full
+rounded-xl
+bg-white/20
+py-2
+text-sm
+hover:bg-white/30
+"
+>
+
+Open AI
+
+</button>
+
+
+</div>
+
+
+        {/* Navigation Section */}
+        <div className="flex-1 overflow-y-auto p-4 custom-scrollbar min-h-0">
+          <p className="mb-2 px-3 text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-neutral-500">
+            Navigation
+          </p>
+
+          <nav className="space-y-1 pb-6">
+            {menus.map((item) => {
+              const Icon = item.icon;
+              const active = pathname === item.href;
+
+              return (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                  className={`group relative flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all duration-200 ${
+                    active
+                      ? "bg-violet-600 dark:bg-indigo-600 text-white shadow-md font-semibold"
+                      : "text-slate-600 dark:text-neutral-400 hover:bg-slate-50 dark:hover:bg-neutral-900/50 hover:text-slate-900 dark:hover:text-white"
+                  }`}
+                >
+                  <Icon
+                    size={18}
+                    className={`transition-colors duration-200 ${
+                      active
+                        ? "text-white"
+                        : "text-slate-400 dark:text-neutral-500 group-hover:text-slate-700 dark:group-hover:text-neutral-300"
+                    }`}
+                  />
+                  <span>{item.label}</span>
+                </Link>
+              );
+            })}
+          </nav>
+        </div>
+
+        {/* Logout Section */}
+        <div className="border-t px-4 border-slate-100 dark:border-neutral-900 shrink-0 bg-white dark:bg-neutral-950">
+<button
+  type="button"
+  disabled={isLoggingOut}
+  className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold text-red-600 dark:text-red-400 transition-all duration-200 hover:bg-red-50 dark:hover:bg-red-950/20 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+  onClick={handleLogout}
+>
+  <LogOut size={18} className={isLoggingOut ? "animate-spin" : ""} />
+  <span>{isLoggingOut ? "Signing Out..." : "Logout"}</span>
+</button>
+        </div>
+
+        {/* Footer */}
+        <div className="border-t px-6 py-2 text-center border-slate-100 dark:border-neutral-900 bg-slate-50/30 dark:bg-neutral-900/10 shrink-0">
+          <p className="text-[11px] font-medium text-slate-400 dark:text-neutral-500">
+            © {new Date().getFullYear()} {appName} LLC.
+          </p>
+          <p className="text-[9px] font-bold text-slate-300 dark:text-neutral-700 tracking-wider uppercase mt-0.5">
+            Hotel Management Console
+          </p>
+        </div>
+      </aside>
+    </>
+  );
+}

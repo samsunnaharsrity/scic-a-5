@@ -30,19 +30,32 @@ export const auth = betterAuth({
     client,
   }),
 
-  user: {
-    additionalFields: {
-      plan: {
-        type: "string",
-        required: false,
-        defaultValue: "free",
-      },
-    },
+  user:{
+    additionalFields:{
+      
+      // custom field
+         plan:{
+            type:"string",
+            required:false,
+            defaultValue:"free",
+            input:true,
+          },
+
+      // role field add 
+         role:{
+            type:"string",
+            required:false,
+            defaultValue:"user",
+            input:true,
+          }
+
+    }
   },
 
-  plugins: [
+
+  plugins:[
     admin({
-      defaultRole: "user",
-    }),
-  ],
+      defaultRole:"user",
+    })
+  ]
 });

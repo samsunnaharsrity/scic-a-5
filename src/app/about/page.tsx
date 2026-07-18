@@ -2,6 +2,7 @@ import AboutHero from "./AboutHero";
 import CompanyStats from "./CompanyStats";
 import CoreValues from "./CoreValues";
 import OurStory from "./OurStory";
+import PlatformRoles from "./PlatformRoles";
 import TeamSection from "./TeamSection";
 import WhyChooseUs from "./WhyChooseUs";
 
@@ -13,6 +14,7 @@ export default function AboutPage() {
       <OurStory />
       <CoreValues />
       <WhyChooseUs />
+      <PlatformRoles></PlatformRoles>
       <TeamSection />
       <CompanyStats />
     <section className="py-20 text-center">

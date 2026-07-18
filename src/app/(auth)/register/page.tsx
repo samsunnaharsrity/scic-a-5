@@ -91,12 +91,18 @@ const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
   try {
     setLoading(true);
 
-    const result = await signUp.email({
-      name,
-      email,
-      password: passwordValue,
-      callbackURL: "/",
-    });
+const result = await signUp.email({
+  name,
+  email,
+  password: passwordValue,
+
+//  role,
+//  plan: role==="admin"
+//       ? "admin"
+//       : "user_free",
+
+  callbackURL:"/",
+});
 
     if (result?.error) {
       toast.error(result.error.message || "Signup failed", { id: toastId });

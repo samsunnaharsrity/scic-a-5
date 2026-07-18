@@ -24,20 +24,14 @@ import {
 } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 
+
+
 interface NavLink {
   name: string;
   href: string;
 }
 
-const navLinks: NavLink[] = [
-  { name: "Home", href: "/" },
-  { name: "Explore", href: "/Explore" },
-  { name: "AI Tools", href: "/ai-tools" },
-  { name: "Pricing", href: "/pricing" },
-  { name: "Blog", href: "/blog" },
-  { name: "About", href: "/about" },
-  { name: "Contact", href: "/contact" }
-];
+
 
 interface NotificationItem {
   id: number;
@@ -88,6 +82,18 @@ export default function Navbar() {
 const { data: session, isPending } = authClient.useSession();
 
 const user = session?.user;
+
+const navLinks: NavLink[] = [
+  { name: "Home", href: "/" },
+  { name: "Explore", href: "/Explore" },
+  { name: "AI Tools", href: "/ai-tools" },
+  { name: "Pricing", href: "/pricing" },
+  { name: "Blog", href: "/blog" },
+  { name: "About", href: "/about" },
+  { name: "Contact", href: "/contact" },
+        ...(user ? [{ name: "Dashboard", href: "/dashboard" }] : []),
+];
+
   
   // Dropdown states
   const [notificationsOpen, setNotificationsOpen] = useState(false);
