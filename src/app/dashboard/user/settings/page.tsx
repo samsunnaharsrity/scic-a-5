@@ -1,6 +1,8 @@
 "use client";
 
+import { useDashboard } from "@/app/components/dashboardData/dashboardProvider";
 import axios from "axios";
+
 import {
   Bell,
   Moon,
@@ -10,6 +12,7 @@ import {
   Mail,
   Lock,
   Brain,
+  Cpu,
 } from "lucide-react";
 
 import { useEffect, useState } from "react";
@@ -18,64 +21,108 @@ import toast from "react-hot-toast";
 
 interface SettingsState {
 
-  notifications:{
-    email:boolean;
-    updates:boolean;
-  };
+notifications:{
+ email:boolean;
+ updates:boolean;
+};
 
-  appearance:{
-    darkMode:boolean;
-  };
+appearance:{
+ darkMode:boolean;
+};
 
-  security:{
-    loginAlert:boolean;
-  };
+security:{
+ loginAlert:boolean;
+};
 
-  ai:{
-    memory:boolean;
-    defaultModel:string;
-  };
+ai:{
+ memory:boolean;
+ defaultModel:string;
+};
 
 }
 
 
+const defaultSettings:SettingsState={
 
-const defaultSettings:SettingsState = {
+notifications:{
+ email:true,
+ updates:false
+},
 
-  notifications:{
-    email:true,
-    updates:false,
-  },
+appearance:{
+ darkMode:false
+},
 
-  appearance:{
-    darkMode:false,
-  },
+security:{
+ loginAlert:true
+},
 
-  security:{
-    loginAlert:true,
-  },
-
-  ai:{
-    memory:true,
-    defaultModel:"Gemini",
-  }
+ai:{
+ memory:true,
+ defaultModel:"Gemini"
+}
 
 };
-
 
 
 export default function SettingsPage(){
 
 
-const [settings,setSettings] = useState<SettingsState>(
-  defaultSettings
+const [settings,setSettings]=
+useState<SettingsState>(defaultSettings);
+
+
+const [loading,setLoading]=useState(true);
+
+
+
+const {session}=useDashboard();
+
+const userId=session?.user?.email;
+
+
+
+useEffect(()=>{
+
+
+if(!userId) return;
+
+
+const loadSettings=async()=>{
+
+try{
+
+const {data}=await axios.get(
+`${process.env.NEXT_PUBLIC_API_URL}/api/settings/${userId}`
 );
 
+setSettings(data.data);
+
+}
+
+catch(error){
+
+console.log(error);
+
+}
+
+finally{
+
+setLoading(false);
+
+}
 
 
-const toggleSetting = (
- section:keyof SettingsState,
- key:string
+};
+
+loadSettings();
+
+},[userId]);
+
+
+const toggleSetting=(
+section:keyof SettingsState,
+key:string
 )=>{
 
 
@@ -85,88 +132,76 @@ setSettings(prev=>({
 
 [section]:{
 
- ...prev[section],
+...prev[section],
 
- [key]:
- !(prev[section] as any)[key]
+[key]:
+!(prev[section] as any)[key]
 
 }
 
 }));
 
 
+
 };
 
 
-const userId = "demo-user-id";
 
-
-useEffect(()=>{
-
-
-const loadSettings = async()=>{
+const saveSettings=async()=>{
 
 
 try{
 
 
-const response = await axios.get(
-`${process.env.NEXT_PUBLIC_API_URL}/api/settings/${userId}`
-);
-
-
-setSettings(response.data.data);
-
-
-}
-catch(error){
-
-console.log("Load settings error:", error);
-
-}
-
-
-};
-
-
-loadSettings();
-
-
-},[]);
-
-
-const saveSettings = async()=>{
-
-try{
-
-
-const userId = "demo-user-id"; 
-
-
-const response = await axios.patch(
+await axios.patch(
 `${process.env.NEXT_PUBLIC_API_URL}/api/settings/${userId}`,
 settings
 );
 
 
-console.log(response.data);
-
-
-toast.success("Settings saved successfully");
+toast.success(
+"Settings updated successfully"
+);
 
 
 }
+
 catch(error){
 
-console.log(error);
 
-toast.error("Failed to save settings");
+toast.error(
+"Settings update failed"
+);
+
 
 }
+
 
 
 };
 
+
+
+
+if(loading){
+
+return (
+
+<div className="
+flex
+h-60
+items-center
+justify-center
+text-muted-foreground
+">
+
+Loading settings...
+
+</div>
+
+)
+
+}
 
 
 
@@ -175,144 +210,268 @@ return (
 <div className="space-y-8">
 
 
+
 {/* Header */}
 
 <div>
 
-<h1 className="text-3xl font-bold">
+<h1 className="
+text-3xl
+font-bold
+tracking-tight
+">
+
 Settings
+
 </h1>
 
-<p className="text-muted-foreground mt-2">
-Manage your account preferences and AI workspace settings
+
+<p className="
+text-muted-foreground
+mt-2
+">
+
+Manage your account preferences and AI workspace configuration.
+
 </p>
+
+
+</div>
+
+
+
+<SettingCard
+
+icon={Bell}
+
+title="Notifications"
+
+description="Control alerts and product updates"
+
+>
+
+
+
+<SettingItem
+
+icon={Mail}
+
+title="Email Notifications"
+
+description="Receive account and AI updates"
+
+checked={
+settings.notifications.email
+}
+
+onClick={()=>
+toggleSetting(
+"notifications",
+"email"
+)
+}
+
+/>
+
+
+
+
+<SettingItem
+
+icon={Sparkles}
+
+title="Product Updates"
+
+description="Get latest AI feature announcements"
+
+checked={
+settings.notifications.updates
+}
+
+onClick={()=>
+toggleSetting(
+"notifications",
+"updates"
+)
+}
+
+/>
+
+
+
+</SettingCard>
+
+
+
+
+
+
+
+
+
+{/* <SettingCard
+
+icon={Moon}
+
+title="Appearance"
+
+description="Customize your dashboard look"
+
+>
+
+
+<SettingItem
+
+icon={Moon}
+
+title="Dark Mode"
+
+description="Switch between light and dark theme"
+
+checked={
+settings.appearance.darkMode
+}
+
+onClick={()=>
+toggleSetting(
+"appearance",
+"darkMode"
+)
+}
+
+/>
+
+
+</SettingCard> */}
+
+
+
+
+
+
+
+
+
+<SettingCard
+
+icon={Shield}
+
+title="Security"
+
+description="Protect your AI workspace"
+
+>
+
+
+<SettingItem
+
+icon={Lock}
+
+title="Login Alerts"
+
+description="Notify when a new login happens"
+
+checked={
+settings.security.loginAlert
+}
+
+onClick={()=>
+toggleSetting(
+"security",
+"loginAlert"
+)
+}
+
+/>
+
+
+</SettingCard>
+
+
+
+
+
+
+
+
+
+<SettingCard
+
+icon={Brain}
+
+title="AI Preferences"
+
+description="Manage your AI assistant behaviour"
+
+>
+
+
+
+<SettingItem
+
+icon={Brain}
+
+title="AI Memory"
+
+description="Allow AI to remember preferences"
+
+checked={
+settings.ai.memory
+}
+
+onClick={()=>
+toggleSetting(
+"ai",
+"memory"
+)
+}
+
+/>
+
+
+
+
+
+<div className="
+rounded-xl
+border
+p-5
+bg-muted/30
+">
+
+
+<div className="
+flex
+items-center
+gap-2
+mb-3
+">
+
+
+<Cpu size={18}/>
+
+<label className="
+font-semibold
+">
+
+Default AI Model
+
+</label>
+
 
 </div>
 
 
 
 
-
-{/* Notifications */}
-
-<SettingCard
-icon={Bell}
-title="Notification Settings"
-description="Manage how you receive updates"
->
-
-
-<SettingItem
-icon={Mail}
-title="Email Notifications"
-description="Receive AI updates and account alerts"
-checked={settings.notifications.email}
-onClick={()=>toggleSetting("notifications","email")}
-/>
-
-
-<SettingItem
-icon={Sparkles}
-title="Product Updates"
-description="Get news about new AI features"
-checked={settings.notifications.updates}
-onClick={()=>toggleSetting("notifications","updates")}
-/>
-
-
-</SettingCard>
-
-
-
-
-
-
-
-{/* Appearance */}
-
-<SettingCard
-icon={Moon}
-title="Appearance"
-description="Customize your dashboard experience"
->
-
-
-<SettingItem
-icon={Moon}
-title="Dark Mode"
-description="Use dark theme across application"
-checked={settings.appearance.darkMode}
-onClick={()=>toggleSetting("appearance","darkMode")}
-/>
-
-
-</SettingCard>
-
-
-
-
-
-
-
-
-{/* Security */}
-
-<SettingCard
-icon={Shield}
-title="Security"
-description="Protect your AI workspace"
->
-
-
-<SettingItem
-icon={Lock}
-title="Login Alerts"
-description="Get notified about new logins"
-checked={settings.security.loginAlert}
-onClick={()=>toggleSetting("security","loginAlert")}
-/>
-
-
-</SettingCard>
-
-
-
-
-
-
-
-
-{/* AI */}
-
-<SettingCard
-icon={Brain}
-title="AI Preferences"
-description="Manage AI assistant behaviour"
->
-
-
-<SettingItem
-icon={Brain}
-title="AI Memory"
-description="Allow AI to remember preferences"
-checked={settings.ai.memory}
-onClick={()=>toggleSetting("ai","memory")}
-/>
-
-
-
-<div className="rounded-xl border p-4">
-
-<label className="font-medium">
-Default AI Model
-</label>
-
-
 <select
 
-value={settings.ai.defaultModel}
+value={
+settings.ai.defaultModel
+}
 
 onChange={(e)=>
+
 
 setSettings(prev=>({
 
@@ -325,16 +484,21 @@ defaultModel:e.target.value
 
 }))
 
+
 }
 
+
 className="
-mt-3
 w-full
-rounded-lg
+rounded-xl
 border
 bg-background
-p-2
+p-3
+outline-none
+focus:ring-2
+focus:ring-primary
 "
+
 
 >
 
@@ -359,6 +523,7 @@ Claude
 
 
 
+
 </SettingCard>
 
 
@@ -367,8 +532,13 @@ Claude
 
 
 
+
+
+
 <button
+
 onClick={saveSettings}
+
 className="
 flex
 items-center
@@ -377,17 +547,24 @@ rounded-xl
 bg-primary
 px-6
 py-3
+font-semibold
 text-white
-font-medium
-hover:opacity-90
+shadow-lg
+hover:scale-[1.02]
+transition
 "
+
+
 >
+
 
 <Save size={18}/>
 
 Save Changes
 
+
 </button>
+
 
 
 
@@ -397,6 +574,8 @@ Save Changes
 )
 
 }
+
+
 
 
 
@@ -415,22 +594,28 @@ children
 return (
 
 <div className="
-rounded-2xl
+rounded-3xl
 border
 bg-card
 p-6
 shadow-sm
-space-y-5
+hover:shadow-md
+transition
+space-y-6
 ">
 
 
-<div className="flex items-center gap-3">
+<div className="
+flex
+items-center
+gap-4
+">
 
 
 <div className="
-h-10
-w-10
-rounded-xl
+h-12
+w-12
+rounded-2xl
 bg-primary/10
 flex
 items-center
@@ -439,22 +624,37 @@ justify-center
 
 
 <Icon
-className="text-primary"
+className="
+text-primary
+"
 />
 
 
 </div>
 
 
+
 <div>
 
-<h2 className="font-semibold text-lg">
+<h2 className="
+text-lg
+font-bold
+">
+
 {title}
+
 </h2>
 
-<p className="text-sm text-muted-foreground">
+
+<p className="
+text-sm
+text-muted-foreground
+">
+
 {description}
+
 </p>
+
 
 </div>
 
@@ -473,9 +673,15 @@ className="text-primary"
 
 </div>
 
+
 )
 
 }
+
+
+
+
+
 
 
 
@@ -495,28 +701,34 @@ return (
 flex
 items-center
 justify-between
-rounded-xl
+rounded-2xl
 border
-p-4
-hover:bg-muted/50
+p-5
+hover:bg-muted/40
 transition
 ">
 
 
-<div className="flex gap-4 items-center">
+<div className="
+flex
+items-center
+gap-4
+">
 
 
 <div className="
-h-9
-w-9
-rounded-lg
+h-10
+w-10
+rounded-xl
 bg-muted
 flex
 items-center
 justify-center
 ">
 
+
 <Icon size={18}/>
+
 
 </div>
 
@@ -524,18 +736,30 @@ justify-center
 
 <div>
 
-<h3 className="font-medium">
+<h3 className="
+font-semibold
+">
+
 {title}
+
 </h3>
 
-<p className="text-sm text-muted-foreground">
+
+<p className="
+text-sm
+text-muted-foreground
+">
+
 {description}
+
 </p>
 
+
 </div>
 
 
 </div>
+
 
 
 
@@ -546,12 +770,20 @@ onClick={onClick}
 
 className={`
 relative
-h-6
-w-12
+h-7
+w-14
 rounded-full
 transition
-${checked ? "bg-primary":"bg-gray-300"}
+duration-300
+${
+checked
+?
+"bg-primary"
+:
+"bg-gray-300 dark:bg-gray-700"
+}
 `}
+
 
 >
 
@@ -561,12 +793,20 @@ ${checked ? "bg-primary":"bg-gray-300"}
 className={`
 absolute
 top-1
-h-4
-w-4
+h-5
+w-5
 rounded-full
 bg-white
-transition
-${checked ? "left-7":"left-1"}
+shadow
+transition-all
+duration-300
+${
+checked
+?
+"left-8"
+:
+"left-1"
+}
 `}
 
 />
@@ -578,6 +818,7 @@ ${checked ? "left-7":"left-1"}
 
 
 </div>
+
 
 )
 

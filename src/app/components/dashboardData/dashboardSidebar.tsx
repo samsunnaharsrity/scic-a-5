@@ -273,7 +273,7 @@ useEffect(() => {
       const data = await res.json();
 
       if (res.ok) {
-        setAppName(data.data?.siteName || data.siteName || "AgenticAI");
+        setAppName(data.data?.siteName || data.siteName || "Agentic AI");
       }
     } catch (err) {
       console.error(err);
