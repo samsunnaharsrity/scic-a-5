@@ -2,7 +2,7 @@
 
 import { Check, Sparkles } from "lucide-react";
 import ToolCardSkeleton from "../components/skeletons/ToolCardSkeleton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const plans = [
   {
@@ -60,29 +60,28 @@ const [loading,setLoading]=useState(true);
 
 
 
-if (loading) {
+useEffect(()=>{
 
-  return (
+setLoading(false);
 
-    <section className="bg-slate-50 dark:bg-slate-950 min-h-screen py-10">
+},[]);
 
-      <div className="max-w-6xl mx-auto px-4">
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+if(loading){
 
-          {[...Array(8)].map((_, index) => (
+return (
+<section className="bg-slate-50 dark:bg-slate-950 min-h-screen py-10">
+<div className="max-w-6xl mx-auto px-4">
+<div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
 
-            <ToolCardSkeleton key={index} />
+{Array.from({length:8}).map((_,index)=>(
+<ToolCardSkeleton key={index}/>
+))}
 
-          ))}
-
-        </div>
-
-      </div>
-
-    </section>
-
-  );
+</div>
+</div>
+</section>
+)
 
 }
 

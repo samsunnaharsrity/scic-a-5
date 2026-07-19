@@ -10,7 +10,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import ToolCardSkeleton from "../components/skeletons/ToolCardSkeleton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const categories = [
   "AI",
@@ -57,29 +57,31 @@ const blogs = [
 export default function BlogPage() {
   const [tools,setTools]=useState([]);
   const [loading,setLoading]=useState(true);
-if (loading) {
 
-  return (
 
-    <section className="bg-slate-50 dark:bg-slate-950 min-h-screen py-10">
 
-      <div className="max-w-6xl mx-auto px-4">
+useEffect(()=>{
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+setLoading(false);
 
-          {[...Array(8)].map((_, index) => (
+},[]);
 
-            <ToolCardSkeleton key={index} />
 
-          ))}
+if(loading){
 
-        </div>
+return (
+<section className="bg-slate-50 dark:bg-slate-950 min-h-screen py-10">
+<div className="max-w-6xl mx-auto px-4">
+<div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
 
-      </div>
+{Array.from({length:8}).map((_,index)=>(
+<ToolCardSkeleton key={index}/>
+))}
 
-    </section>
-
-  );
+</div>
+</div>
+</section>
+)
 
 }
 

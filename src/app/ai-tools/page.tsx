@@ -136,7 +136,7 @@ return (
 
 return (
     <section className="min-h-screen bg-slate-50 dark:bg-slate-950 py-14">
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-6xl mx-auto px-4">
 
         {/* Hero */}
         <div className="text-center mb-12">
