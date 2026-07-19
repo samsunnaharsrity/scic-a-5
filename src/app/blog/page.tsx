@@ -53,10 +53,10 @@ const blogs = [
     read: "6 min read",
   },
 ];
-const [tools,setTools]=useState([]);
-const [loading,setLoading]=useState(true);
 
 export default function BlogPage() {
+  const [tools,setTools]=useState([]);
+  const [loading,setLoading]=useState(true);
 if (loading) {
 
   return (
