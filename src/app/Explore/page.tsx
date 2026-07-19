@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Search, Star } from "lucide-react";
 import { useState, useMemo, useEffect } from "react";
+import ToolCardSkeleton from "../components/skeletons/ToolCardSkeleton";
 
 
 // const tools = [
@@ -131,11 +132,26 @@ useEffect(() => {
 }, [search, priceFilter, categoryFilter, sort]);
 
 
+
 const totalTools = filteredTools.length;
 
+if (loading) {
   return (
     <section className="bg-slate-50 dark:bg-slate-950 min-h-screen py-10">
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-6xl mx-auto px-4">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[...Array(8)].map((_, index) => (
+            <ToolCardSkeleton key={index} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+return (
+    <section className="bg-slate-50 dark:bg-slate-950 min-h-screen py-10">
+      <div className="max-w-6xl mx-auto px-4">
         {/* Header */}
 <div className="mb-10 text-center">
   <h1 className="text-4xl font-bold text-slate-900 dark:text-white">
