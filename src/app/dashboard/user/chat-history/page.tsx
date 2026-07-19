@@ -12,6 +12,7 @@ import {
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 
 
 interface Chat {
@@ -35,7 +36,9 @@ const router = useRouter();
 const [chats,setChats] = useState<Chat[]>([]);
 const [loading,setLoading] = useState(true);
 const [search,setSearch] = useState("");
+const { data: session } = authClient.useSession();
 
+const email = session?.user?.email;
 
 
 
@@ -49,17 +52,19 @@ const fetchChats = async()=>{
 try{
 
 
-const email = localStorage.getItem("userEmail");
-
-
-
 if(!email){
 
+console.log("No user email");
+
 setLoading(false);
+
 return;
 
 }
 
+
+
+console.log("HISTORY EMAIL:",email);
 
 
 
@@ -80,9 +85,12 @@ setChats(res.data.chats || []);
 
 
 }
-catch(error){
+catch(error:any){
 
-console.log("FETCH ERROR:",error);
+console.log(
+"FETCH ERROR:",
+error.response?.data || error.message
+);
 
 
 }
@@ -100,7 +108,8 @@ setLoading(false);
 fetchChats();
 
 
-},[]);
+
+},[email]);
 
 
 
@@ -108,35 +117,23 @@ fetchChats();
 
 
 
-const deleteChat = async(id:string)=>{
+const deleteChat = async(email:string)=>{
 
 
 try{
 
 
-if(!id){
-
-console.log("No chat id");
-
-return;
-
-}
-
-
-
 const confirmDelete =
-confirm("Delete this conversation?");
-
+confirm("Delete all conversations?");
 
 
 if(!confirmDelete) return;
 
 
 
-
 const res = await axios.delete(
 
-`${process.env.NEXT_PUBLIC_API_URL}/api/chat-history/${id}`
+`${process.env.NEXT_PUBLIC_API_URL}/api/chat-history/${email}`
 
 );
 
@@ -146,16 +143,7 @@ console.log(res.data);
 
 
 
-
-setChats(prev=>
-
-prev.filter(
-
-chat=>chat._id !== id
-
-)
-
-);
+setChats([]);
 
 
 
@@ -163,12 +151,9 @@ chat=>chat._id !== id
 catch(error:any){
 
 console.log(
-
 "DELETE ERROR:",
 error.response?.data || error.message
-
 );
-
 
 }
 
@@ -462,8 +447,7 @@ gap-1
 
 <button
 
-onClick={()=>deleteChat(chat._id)}
-
+onClick={()=>deleteChat(email!)}
 className="
 p-2
 rounded-lg

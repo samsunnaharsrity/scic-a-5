@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Star, ArrowLeft, Sparkles } from "lucide-react";
+import ReviewForm from "@/app/components/commonPage/ReviewForm";
 
 
 interface Review {
@@ -8,6 +9,7 @@ interface Review {
   user: string;
   comment: string;
   rating: number;
+  createdAt?: string;
 }
 
 interface Tool {
@@ -74,7 +76,40 @@ async function getTool(id: string): Promise<Tool> {
 
 }
 
+async function getReviews(toolId:string):Promise<Review[]>{
 
+  const url =
+  `${process.env.NEXT_PUBLIC_API_URL}/api/reviews/${toolId}`;
+
+
+  console.log("REVIEW URL:", url);
+
+
+  const res = await fetch(url,{
+    cache:"no-store"
+  });
+
+
+  console.log("STATUS:", res.status);
+  console.log("CONTENT TYPE:", res.headers.get("content-type"));
+
+
+  const text = await res.text();
+
+  console.log("RESPONSE:", text);
+
+
+  if(!res.ok){
+    return [];
+  }
+
+
+  const data = JSON.parse(text);
+
+
+  return data.reviews || [];
+
+}
 
 export default async function ExploreToolDetailsPage({
   params,
@@ -89,7 +124,9 @@ export default async function ExploreToolDetailsPage({
   console.log("Tool ID:", id);
 
 
-  const tool = await getTool(id);
+const tool = await getTool(id);
+
+const reviews = await getReviews(id);
 
 
 
@@ -279,25 +316,21 @@ text-violet-600
 
 <Link
 href={
-tool.title === "AI Chat Assistant"
-? "/ai-tools/chat"
-
-: tool.title === "AI Content Generator"
-? "/ai-tools/content-generator"
-
-: tool.title === "AI Document Analyzer"
-? "/ai-tools/document-analyzer"
-
-: tool.title === "AI Recommendation"
-? "/ai-tools/recommendation"
-
-: tool.title === "AI Data Analyzer"
-? "/ai-tools/data-analyzer"
-
-: tool.title === "AI Auto Tagging"
-? "/ai-tools/auto-tagging"
-
-:"#"
+  {
+    "AI Chat Assistant": "/ai-tools/chat",
+    "AI Content Generator": "/ai-tools/content-generator",
+    "AI Document Analyzer": "/ai-tools/document-analyzer",
+    "AI Recommendation": "/ai-tools/recommendation",
+    "AI Data Analyzer": "/ai-tools/data-analyzer",
+    "AI Auto Tagging": "/ai-tools/auto-tagging",
+    "AI Image Understanding": "/ai-tools/image-understanding",
+    "AI Translator": "/ai-tools/translator",
+    "AI Code Assistant": "/ai-tools/code-assistant",
+    "AI Resume Builder": "/ai-tools/resume-builder",
+    "AI Voice Assistant": "/ai-tools/voice-assistant",
+    "AI Summarizer": "/ai-tools/summarizer",
+    "AI Email Generator": "/ai-tools/email-generator",
+  }[tool.title] || "/ai-tools"
 }
 className="
 mt-8
@@ -311,6 +344,11 @@ font-semibold
 transition
 "
 >
+<Sparkles 
+size={18}
+className="inline mr-2"
+/>
+
 Use This AI Tool
 </Link>
 
@@ -524,15 +562,15 @@ rounded-full
 Reviews
 </h2>
 
-
+<ReviewForm toolId={id}/>
 
 <div className="grid gap-5 mt-6">
 
 
 {
-tool.reviews && tool.reviews.length > 0 ?
+reviews.length > 0 ?
 
-tool.reviews.map((review)=>(
+reviews.map((review)=>(
 
 
 <div
@@ -555,7 +593,6 @@ shadow
 </h3>
 
 
-
 <RatingStars 
 rating={review.rating}
 />
@@ -565,10 +602,27 @@ rating={review.rating}
 
 
 
-<p className="mt-3 text-slate-600 dark:text-slate-300">
+<p className="
+mt-3 
+text-slate-600 
+dark:text-slate-300
+">
 {review.comment}
 </p>
 
+
+{
+review.createdAt && (
+
+<p className="text-sm text-slate-400 mt-3">
+{
+new Date(review.createdAt)
+.toLocaleDateString()
+}
+</p>
+
+)
+}
 
 
 </div>
@@ -578,6 +632,7 @@ rating={review.rating}
 
 
 :
+
 
 <div
 className="
@@ -599,9 +654,7 @@ No reviews available yet.
 </div>
 
 
-
 </div>
-
 
 
 

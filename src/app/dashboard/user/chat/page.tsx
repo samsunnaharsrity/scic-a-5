@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Send, Bot, User } from "lucide-react";
 import axios from "axios";
+import { authClient } from "@/lib/auth-client";
 
 
 interface Message {
@@ -26,7 +27,9 @@ const [messages,setMessages] = useState<Message[]>([
 
 
 const [loading,setLoading] = useState(false);
+const {data:session}=authClient.useSession();
 
+const email=session?.user?.email;
 
 
 const sendMessage = async()=>{
@@ -63,9 +66,7 @@ const {data} = await axios.post(
 {
  message,
 
- email:
- localStorage.getItem("userEmail")
-
+ email
 }
 
 );
