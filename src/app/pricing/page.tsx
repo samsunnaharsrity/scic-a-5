@@ -1,6 +1,8 @@
 "use client";
 
 import { Check, Sparkles } from "lucide-react";
+import ToolCardSkeleton from "../components/skeletons/ToolCardSkeleton";
+import { useState } from "react";
 
 const plans = [
   {
@@ -52,7 +54,41 @@ const plans = [
 ];
 
 export default function PricingPage() {
+
+const [tools,setTools]=useState([]);
+const [loading,setLoading]=useState(true);
+
+
+
+if (loading) {
+
   return (
+
+    <section className="bg-slate-50 dark:bg-slate-950 min-h-screen py-10">
+
+      <div className="max-w-6xl mx-auto px-4">
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+          {[...Array(8)].map((_, index) => (
+
+            <ToolCardSkeleton key={index} />
+
+          ))}
+
+        </div>
+
+      </div>
+
+    </section>
+
+  );
+
+}
+
+
+
+return (
     <section className="min-h-screen bg-slate-50 dark:bg-slate-950 py-16">
       <div className="max-w-7xl mx-auto px-4">
 

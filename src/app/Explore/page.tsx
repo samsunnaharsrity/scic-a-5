@@ -290,7 +290,18 @@ Name A-Z
 
         {/* Cards Grid (No Sidebar) */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {paginatedTools.map((tool) => (
+          {paginatedTools.length === 0 ? (
+  <div className="col-span-full text-center py-20">
+    <h2 className="text-2xl font-bold">
+      No AI Tools Found
+    </h2>
+
+    <p className="text-slate-500 mt-2">
+      Try changing your search or filters.
+    </p>
+  </div>
+) : (
+          paginatedTools.map((tool) => (
             <div key={tool._id} className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden hover:shadow-xl duration-300">
               <Image src={tool.image} alt={tool.title} width={500} height={300} className="h-44 w-full object-cover" />
               <div className="p-5">
@@ -308,7 +319,8 @@ Name A-Z
                 </Link>
               </div>
             </div>
-          ))}
+          ))
+)}
         </div>
 
 

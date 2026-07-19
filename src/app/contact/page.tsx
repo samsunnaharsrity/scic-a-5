@@ -4,16 +4,16 @@ import { useState } from "react";
 import { Mail, Phone, MapPin, Clock, Send, Loader2 } from "lucide-react";
 import { FaGithub, FaTwitter, FaLinkedin } from "react-icons/fa6";
 import toast, { Toaster } from "react-hot-toast";
+import ToolCardSkeleton from "../components/skeletons/ToolCardSkeleton";
 
 export default function ContactPage() {
-  const [loading, setLoading] = useState(false);
+  const [tools,setTools]=useState([]);
+const [loading,setLoading]=useState(true);
 
-  // ফর্ম সাবমিশন হ্যান্ডলার
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
-    // ডেমো টাইমআউট
     setTimeout(() => {
       setLoading(false);
       toast.success("Message sent successfully! We'll get back to you soon.", {
@@ -24,7 +24,21 @@ export default function ContactPage() {
     }, 1500);
   };
 
+if (loading) {
   return (
+    <section className="bg-slate-50 dark:bg-slate-950 min-h-screen py-10">
+      <div className="max-w-6xl mx-auto px-4">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[...Array(8)].map((_, index) => (
+            <ToolCardSkeleton key={index} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+return (
     <main className="bg-white dark:bg-zinc-950">
       <Toaster /> {/* Toast Notification Container */}
 
@@ -79,7 +93,7 @@ export default function ContactPage() {
             </form>
           </div>
 
-          {/* Contact Info (সামান্য ডিজাইন আপডেট করা হয়েছে) */}
+          {/* Contact Info  */}
           <div className="space-y-8">
             <h2 className="text-3xl font-bold">Contact Information</h2>
             <div className="space-y-6">
