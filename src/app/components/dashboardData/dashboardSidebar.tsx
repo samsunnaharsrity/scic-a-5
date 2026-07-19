@@ -85,11 +85,11 @@ const adminMenu: MenuItem[] = [
   icon:BarChart3
 },
 
-{
-  label:"Model Management",
-  href:"/dashboard/admin/models",
-  icon:Cpu
-},
+// {
+//   label:"Model Management",
+//   href:"/dashboard/admin/models",
+//   icon:Cpu
+// },
 
 {
   label:"Prompt Management",
@@ -97,11 +97,11 @@ const adminMenu: MenuItem[] = [
   icon:MessageSquare
 },
 
-{
-  label:"API Keys",
-  href:"/dashboard/admin/api-keys",
-  icon:KeyRound
-},
+// {
+//   label:"API Keys",
+//   href:"/dashboard/admin/api-keys",
+//   icon:KeyRound
+// },
 
 {
   label:"Users Management",
@@ -121,11 +121,11 @@ const adminMenu: MenuItem[] = [
   icon:TrendingUp
 },
 
-{
-  label:"Reports",
-  href:"/dashboard/admin/reports",
-  icon:FileText
-},
+// {
+//   label:"Reports",
+//   href:"/dashboard/admin/reports",
+//   icon:FileText
+// },
 
 {
   label:"System Settings",
