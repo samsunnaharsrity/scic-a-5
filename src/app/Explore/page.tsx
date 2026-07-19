@@ -50,8 +50,8 @@ useEffect(() => {
 
       const data = await res.json();
 
-      if(data.success){
-  setTools(data.data || []);
+if(data.success){
+  setTools(data.tools || []);
 }else{
   setTools([]);
 }
