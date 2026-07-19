@@ -50,7 +50,11 @@ useEffect(() => {
 
       const data = await res.json();
 
-      setTools(data.data);
+      if(data.success){
+  setTools(data.data || []);
+}else{
+  setTools([]);
+}
     } catch (error) {
       console.error("Failed to fetch tools:", error);
     } finally {
@@ -64,8 +68,7 @@ useEffect(() => {
 
 const filteredTools = useMemo(()=>{
 
-let result = tools.filter((tool)=>{
-
+let result = (tools || []).filter((tool)=>{
 const searchMatch =
 tool.title
 .toLowerCase()
