@@ -11,7 +11,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import ToolCardSkeleton from "../components/skeletons/ToolCardSkeleton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // import { useSession } from "@/lib/auth-client";
 // import { useRouter } from "next/navigation";
 // import { useEffect } from "react";
@@ -75,7 +75,7 @@ const aiTools = [
   },
 ];
 export default function AIToolsPage() {
-  const [tools,setTools]=useState([]);
+
   const [loading,setLoading]=useState(true);
 
 
@@ -109,18 +109,29 @@ export default function AIToolsPage() {
 
 
 
-if (loading) {
-  return (
-    <section className="bg-slate-50 dark:bg-slate-950 min-h-screen py-10">
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[...Array(8)].map((_, index) => (
-            <ToolCardSkeleton key={index} />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+useEffect(()=>{
+
+setLoading(false);
+
+},[]);
+
+
+if(loading){
+
+return (
+<section className="bg-slate-50 dark:bg-slate-950 min-h-screen py-10">
+<div className="max-w-6xl mx-auto px-4">
+<div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+{Array.from({length:8}).map((_,index)=>(
+<ToolCardSkeleton key={index}/>
+))}
+
+</div>
+</div>
+</section>
+)
+
 }
 
 return (
