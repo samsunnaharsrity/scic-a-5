@@ -12,7 +12,7 @@ const db = client.db(process.env.AUTH_DB_NAME || "database");
 export const auth = betterAuth({
   trustedOrigins: [
     "http://localhost:3000",
-    "https://scic-a3.vercel.app",
+    "https://scic-a-5.vercel.app",
   ],
 
   emailAndPassword: {
