@@ -72,6 +72,11 @@ const adminMenu: MenuItem[] = [
   href:"/dashboard/admin/agents",
   icon:Brain
 },
+{
+ label:"AI Request Logs",
+ href:"/dashboard/admin/requests",
+ icon:Activity
+},
 
 {
   label:"Agent Training",
@@ -148,6 +153,11 @@ const userMenu: MenuItem[]=[
   href:"/dashboard/user/chat",
   icon:Bot
 },
+{
+ label:"Chat History",
+ href:"/dashboard/user/chat-history",
+ icon:MessageSquare
+},
 
 {
   label:"My AI Agents",
@@ -178,7 +188,11 @@ const userMenu: MenuItem[]=[
   href:"/dashboard/user/playground",
   icon:Wand2
 },
-
+{
+ label:"AI Analytics",
+ href:"/dashboard/user/userAnalytics",
+ icon:BarChart3
+},
 
 {
   label:"My Subscription",

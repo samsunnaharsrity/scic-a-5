@@ -61,7 +61,11 @@ const {data} = await axios.post(
 `${process.env.NEXT_PUBLIC_API_URL}/api/ai/chat`,
 
 {
-message:userMessage
+ message,
+
+ email:
+ localStorage.getItem("userEmail")
+
 }
 
 );
