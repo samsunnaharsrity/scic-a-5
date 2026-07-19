@@ -74,9 +74,9 @@ const aiTools = [
     available: false,
   },
 ];
-const [tools,setTools]=useState([]);
-const [loading,setLoading]=useState(true);
 export default function AIToolsPage() {
+  const [tools,setTools]=useState([]);
+  const [loading,setLoading]=useState(true);
 
 
   // const router = useRouter();
