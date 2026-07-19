@@ -130,14 +130,14 @@ export default function HeroSection() {
               className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto mb-8"
             >
               <Link
-                href="/signup"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-750 hover:to-indigo-750 shadow-md shadow-violet-500/10 active:scale-[0.98] transition-all select-none"
-              >
-                <span>Get Started Free</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+  href="/register"
+  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 shadow-md transition-all"
+>
+  <span>Get Started Free</span>
+  <ArrowRight className="w-4 h-4" />
+</Link>
               <Link
-                href="/features"
+                href="/Explore"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-zinc-700 dark:text-zinc-300 border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors select-none"
               >
                 <span>Explore Features</span>

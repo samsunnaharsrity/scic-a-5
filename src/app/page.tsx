@@ -13,6 +13,9 @@ import {
 } from "lucide-react";
 import HeroSection from "./components/commonPage/hero-section";
 import Testimonials from "./components/commonPage/testimonials";
+import ExplorePreview from "./components/commonPage/ExplorePreview";
+import AboutPreview from "./components/commonPage/AboutPreview";
+import Link from "next/link";
 
 
 export default function Home() {
@@ -21,17 +24,13 @@ export default function Home() {
 
       {/* HERO SECTION */}
       <HeroSection />
-      {/* <TrustedCompanies /> */}
-      {/* <StatsSection /> */}
-      {/* <AIFeatures /> */}
-      {/* <HowItWorks /> */}
-      {/* <WorkflowDemo /> */}
-      {/* <CTASection /> */}
+      <ExplorePreview></ExplorePreview>
+      <AboutPreview></AboutPreview>
 
 
       {/* AGENTS FEATURES SECTION */}
       <section className="py-20 border-t border-zinc-200/50 dark:border-zinc-800/50 bg-white dark:bg-zinc-950/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white sm:text-4xl mb-4">
               Pre-built Specialists Ready To Go
@@ -76,7 +75,7 @@ export default function Home() {
 
       {/* WHY CHOOSE US SCROLLING TEST SECTION */}
       <section className="py-20 border-t border-zinc-200/50 dark:border-zinc-800/50 bg-zinc-50 dark:bg-zinc-950">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-white mb-6">
@@ -121,9 +120,9 @@ export default function Home() {
       <Testimonials />
 
       {/* CTA */}
-      <section className="py-20 lg:py-20">
+      <section className="py-10 lg:py-10">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="relative rounded-3xl bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 text-white p-10 sm:p-12 lg:p-16 overflow-hidden shadow-2xl text-center ring-1 ring-white/10 backdrop-blur-lg">
+          <div className="relative rounded-3xl bg-gradient-to-r from-purple-600 via-indigo-600 to-purple-600 text-white p-5 sm:p-12 lg:p-16 overflow-hidden shadow-2xl text-center ring-1 ring-white/10 backdrop-blur-lg">
             {/* Decorative glow circles */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-72 h-72 bg-purple-400/20 rounded-full blur-3xl -z-10" />
             <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight mb-4">
@@ -132,9 +131,27 @@ export default function Home() {
             <p className="text-purple-100 text-sm sm:text-base leading-relaxed mb-8 max-w-xl mx-auto">
               Whether you are a student, developer, marketer or business owner, our AI tools help you work faster.
             </p>
-            <button className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-white text-purple-700 font-semibold hover:bg-purple-50 transition-colors shadow-lg shadow-purple-500/20">
-              Start Exploring AI Tools
-            </button>
+            <Link
+  href="/ai-tools"
+  className="
+    inline-flex 
+    items-center 
+    justify-center 
+    gap-2 
+    px-8 
+    py-4 
+    rounded-xl 
+    bg-white 
+    text-purple-700 
+    font-semibold 
+    hover:bg-purple-50 
+    transition-colors 
+    shadow-lg 
+    shadow-purple-500/20
+  "
+>
+  Start Exploring AI Tools
+</Link>
           </div>
         </div>
       </section>

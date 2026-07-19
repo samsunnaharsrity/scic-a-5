@@ -158,7 +158,6 @@ await axios.patch(
 settings
 );
 
-
 toast.success(
 "Settings updated successfully"
 );

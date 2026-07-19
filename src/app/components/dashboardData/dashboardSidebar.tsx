@@ -227,13 +227,40 @@ const [appName, setAppName] = useState("AgenticAI");
   const email = userData?.email || "No email connected";
   const image = userData?.image;
 
-
   //   console.log("session:", session);
   // console.log("user:", session.user);
   // console.log("userData:", userData);
   // console.log("role:", role);
 
   const menus = role === "admin" ? adminMenu : userMenu;
+useEffect(()=>{
+
+if(!email) return;
+
+
+const loadSettings = async()=>{
+
+const res = await fetch(
+`${process.env.NEXT_PUBLIC_API_URL}/api/settings/${email}`
+);
+
+
+const data = await res.json();
+
+if(res.ok){
+setAppName(
+data.data?.siteName || "AgenticAI"
+)
+}
+
+
+};
+
+
+loadSettings();
+
+
+},[email]);
 
 const handleLogout = async () => {
     startLogoutTransition(async () => {
@@ -263,12 +290,12 @@ const handleLogout = async () => {
 useEffect(() => {
   const loadSettings = async () => {
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/settings`,
-        {
-          cache: "no-store",
-        }
-      );
+const res = await fetch(
+`${process.env.NEXT_PUBLIC_API_URL}/api/settings/${email}`,
+{
+ cache:"no-store"
+}
+);
 
       const data = await res.json();
 
@@ -323,8 +350,32 @@ useEffect(() => {
 
       {/* Sidebar Layout CONTAINER */}
       <aside
-        className={`fixed left-0 top-0 lg:top-20 z-40 flex h-full lg:h-[calc(100vh-6rem)] w-72 flex-col border-r bg-white dark:bg-neutral-950 border-slate-100 dark:border-neutral-900 shadow-2xl lg:shadow-none transition-transform duration-300 lg:sticky lg:translate-x-0
-        ${open ? "translate-x-0" : "-translate-x-full"}`}
+  className={`
+    fixed 
+    left-0 
+    top-0 
+    z-50
+    flex 
+    h-screen
+    w-72
+    flex-col
+    border-r
+    bg-white
+    dark:bg-neutral-950
+    border-slate-100
+    dark:border-neutral-900
+    shadow-2xl
+    transition-transform
+    duration-300
+
+    lg:sticky
+    lg:top-20
+    lg:z-30
+    lg:h-[calc(100vh-5rem)]
+
+    ${open ? "translate-x-0" : "-translate-x-full"}
+    lg:translate-x-0
+  `}
       >
         {/* Header */}
         <div className="flex items-center justify-between border-b p-3 border-slate-100 dark:border-neutral-900 shrink-0">

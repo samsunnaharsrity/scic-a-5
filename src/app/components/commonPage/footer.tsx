@@ -28,7 +28,7 @@ export default function Footer() {
   };
 
   const productLinks = [
-    { name: "Features", href: "/features" },
+    { name: "About", href: "/about" },
     { name: "Pricing", href: "/pricing" },
     { name: "Explore", href: "/Explore" },
     { name: "AI Tools", href: "/ai-tools" },
@@ -93,7 +93,7 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="relative bg-gradient-to-b from-zinc-50 to-zinc-100 dark:from-zinc-950 dark:to-zinc-950 border-t border-zinc-200/50 dark:border-zinc-800/50 pt-16 pb-8 transition-colors duration-300 overflow-hidden">
+    <footer className="relative bg-gradient-to-b from-indigo-50 via-white to-purple-50 dark:from-[#09090b] dark:via-[#111827] dark:to-[#1e1b4b] border-t border-zinc-200/50 dark:border-zinc-800/50 pt-16 pb-8 transition-colors duration-300 overflow-hidden">
       
       {/* Decorative Glow */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px] h-[250px] bg-violet-600/5 dark:bg-violet-500/2 rounded-full blur-[100px] pointer-events-none -z-10" />

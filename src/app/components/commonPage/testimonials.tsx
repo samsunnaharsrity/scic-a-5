@@ -7,25 +7,28 @@ import { Star } from "lucide-react";
 
 const testimonials = [
   {
-    avatar: "/avatars/user1.png",
+    avatar: "https://randomuser.me/api/portraits/men/32.jpg",
     name: "Alex Johnson",
     role: "Product Manager",
     rating: 5,
-    review: "AgenticAI transformed our workflow – the AI tools are lightning fast and incredibly reliable.",
+    review:
+      "AgenticAI transformed our workflow – the AI tools are lightning fast and incredibly reliable.",
   },
   {
-    avatar: "/avatars/user2.png",
+    avatar: "https://randomuser.me/api/portraits/women/44.jpg",
     name: "Maria Garcia",
     role: "Lead Engineer",
     rating: 5,
-    review: "The platform's flexibility let us prototype new features in hours instead of weeks. Highly recommend!",
+    review:
+      "The platform's flexibility helped us build and test new AI solutions faster than ever before.",
   },
   {
-    avatar: "/avatars/user3.png",
+    avatar: "https://randomuser.me/api/portraits/men/75.jpg",
     name: "Samir Patel",
     role: "Growth Marketer",
     rating: 5,
-    review: "Our campaign ROI jumped 3x after integrating the AI content generator. Pure magic.",
+    review:
+      "Our productivity increased significantly after integrating AI automation into our workflow.",
   },
 ];
 

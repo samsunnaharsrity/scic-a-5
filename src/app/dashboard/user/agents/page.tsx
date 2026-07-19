@@ -34,31 +34,21 @@ const loadAgents = async()=>{
 
 try{
 
-if(!session?.user?.email) return;
-
-
-const email = encodeURIComponent(
-session.user.email
-);
-
-
 
 const {data}=await axios.get(
 
-`${process.env.NEXT_PUBLIC_API_URL}/api/agents/my/${email}`
+`${process.env.NEXT_PUBLIC_API_URL}/api/agents`
 
 );
 
 
-
 console.log(
-"AGENT RESPONSE:",
+"ALL AGENTS RESPONSE:",
 data
 );
 
 
-
-setAgents(data.agents || []);
+setAgents(data);
 
 
 }

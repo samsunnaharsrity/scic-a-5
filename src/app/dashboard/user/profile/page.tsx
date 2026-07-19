@@ -159,10 +159,12 @@ URL.createObjectURL(file)
 };
 
   return (
-    <div className="grid gap-8 lg:grid-cols-3 mt-20">
+    <div className="grid gap-8 lg:grid-cols-3 mt-20 text-gray-900
+    dark:text-white">
 
       {/* Profile Card */}
-      <div className="rounded-xl border bg-white p-6 shadow">
+      <div className="rounded-xl border bg-white p-6 shadow dark:bg-neutral-900
+      dark:border-neutral-800">
 
         <div className="flex flex-col items-center">
 
@@ -173,7 +175,8 @@ src={preview}
 alt="profile"
 width={120}
 height={120}
-className="h-[120px] w-[120px] rounded-full object-cover"
+className="h-[120px] w-[120px] rounded-full object-cover ring-4
+              ring-violet-500/20"
 />
 
 )
@@ -192,9 +195,11 @@ mt-4
 cursor-pointer
 rounded-lg
 bg-violet-600
+hover:bg-violet-700
 px-4
 py-2
 text-white
+transition
 "
 >
 
@@ -221,7 +226,7 @@ onChange={handleImageChange}
             {formData.name}
           </h2>
 
-          <p className="text-gray-500">
+          <p className="text-gray-500 dark:text-gray-400">
             {formData.email}
           </p>
 
@@ -232,7 +237,8 @@ onChange={handleImageChange}
 
 
       {/* Edit Form */}
-      <div className="lg:col-span-2 rounded-xl border bg-white p-8 shadow">
+      <div className="lg:col-span-2 rounded-xl border bg-white p-8 shadow  dark:bg-neutral-900
+      dark:border-neutral-800">
 
         <h2 className="mb-6 text-2xl font-bold">
           Edit Profile
@@ -247,7 +253,13 @@ onChange={handleImageChange}
           name="name"
           value={formData.name}
           onChange={handleChange}
-          className="mt-2 w-full rounded-lg border p-3"
+          className="mt-2 w-full rounded-lg border dark:border-neutral-700
+        bg-white
+        dark:bg-neutral-800
+        p-3
+        outline-none
+        focus:ring-2
+        focus:ring-violet-500"
         />
 
 
@@ -259,14 +271,15 @@ onChange={handleImageChange}
           name="email"
           value={formData.email}
           disabled
-          className="mt-2 w-full rounded-lg border bg-gray-100 p-3"
+          className="mt-2 w-full rounded-lg border bg-gray-100 p-3 dark:bg-neutral-800
+        dark:text-gray-400"
         />
 
 
         <button
           onClick={handleUpdate}
           disabled={loading}
-          className="mt-6 flex items-center gap-2 rounded-lg bg-violet-600 px-6 py-3 text-white"
+          className="mt-6 flex items-center gap-2 rounded-lg bg-violet-600 transition hover:bg-violet-700 px-6 py-3 text-white"
         >
           <Save size={18}/>
           {loading ? "Saving..." : "Save Changes"}
