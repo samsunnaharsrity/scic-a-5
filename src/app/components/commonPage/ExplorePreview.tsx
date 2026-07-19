@@ -35,15 +35,26 @@ const res = await fetch(
 
 const data = await res.json();
 
+console.log("Explore Preview:",data);
+
+
+if(data.success){
 
 setTools(
-data.data?.slice(0,4) || []
+(data.tools || []).slice(0,4)
 );
+
+}else{
+
+setTools([]);
+
+}
 
 
 }catch(error){
 
-console.log(error);
+console.log("Tools fetch error:",error);
+setTools([]);
 
 }
 
@@ -72,8 +83,6 @@ dark:border-zinc-800
 
 <div className="max-w-6xl mx-auto px-4">
 
-
-{/* Header */}
 
 <div className="flex flex-col md:flex-row justify-between items-center mb-12">
 
@@ -107,7 +116,6 @@ for every workflow.
 </div>
 
 
-
 <Link
 href="/Explore"
 className="
@@ -138,9 +146,6 @@ View All Tools
 
 
 
-{/* Cards */}
-
-
 <div className="
 grid
 grid-cols-1
@@ -152,7 +157,6 @@ gap-6
 
 {
 tools.map((tool)=>(
-
 
 <div
 key={tool._id}
@@ -172,7 +176,7 @@ transition
 
 <Image
 
-src={tool.image}
+src={tool.image || "/placeholder.png"}
 
 alt={tool.title}
 
@@ -189,9 +193,7 @@ object-cover
 />
 
 
-
 <div className="p-5">
-
 
 <h3 className="
 font-bold
@@ -214,7 +216,6 @@ mt-1
 {tool.category}
 
 </p>
-
 
 
 <div className="
@@ -245,7 +246,6 @@ text-yellow-400
 </div>
 
 
-
 <span className="
 text-violet-600
 font-semibold
@@ -271,16 +271,13 @@ text-sm
 }
 
 
-
 </div>
-
 
 
 </div>
 
 
 </section>
-
 
 );
 
