@@ -40,6 +40,9 @@ const [loading, setLoading] = useState(true);
 const [categoryFilter,setCategoryFilter] = useState("All");
 const [sort,setSort] = useState("default");
 
+const [currentPage, setCurrentPage] = useState(1);
+const toolsPerPage = 8;
+
 
 useEffect(() => {
   const fetchTools = async () => {
@@ -113,6 +116,20 @@ priceFilter,
 categoryFilter,
 sort
 ]);
+
+
+
+const totalPages = Math.ceil(filteredTools.length / toolsPerPage);
+
+const paginatedTools = filteredTools.slice(
+  (currentPage - 1) * toolsPerPage,
+  currentPage * toolsPerPage
+);
+
+useEffect(() => {
+  setCurrentPage(1);
+}, [search, priceFilter, categoryFilter, sort]);
+
 
 const totalTools = filteredTools.length;
 
@@ -257,7 +274,7 @@ Name A-Z
 
         {/* Cards Grid (No Sidebar) */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {filteredTools.map((tool) => (
+          {paginatedTools.map((tool) => (
             <div key={tool._id} className="rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden hover:shadow-xl duration-300">
               <Image src={tool.image} alt={tool.title} width={500} height={300} className="h-44 w-full object-cover" />
               <div className="p-5">
@@ -277,6 +294,48 @@ Name A-Z
             </div>
           ))}
         </div>
+
+
+
+        {/* Pagination */}
+
+{totalPages > 1 && (
+  <div className="flex justify-center items-center gap-2 mt-10 flex-wrap">
+
+    <button
+      onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+      disabled={currentPage === 1}
+      className="px-4 py-2 rounded-lg border bg-white dark:bg-slate-900 disabled:opacity-50"
+    >
+      Previous
+    </button>
+
+    {Array.from({ length: totalPages }).map((_, index) => (
+      <button
+        key={index}
+        onClick={() => setCurrentPage(index + 1)}
+        className={`w-10 h-10 rounded-lg transition ${
+          currentPage === index + 1
+            ? "bg-violet-600 text-white"
+            : "bg-white dark:bg-slate-900 border"
+        }`}
+      >
+        {index + 1}
+      </button>
+    ))}
+
+    <button
+      onClick={() =>
+        setCurrentPage((p) => Math.min(p + 1, totalPages))
+      }
+      disabled={currentPage === totalPages}
+      className="px-4 py-2 rounded-lg border bg-white dark:bg-slate-900 disabled:opacity-50"
+    >
+      Next
+    </button>
+
+  </div>
+)}
       </div>
     </section>
   );
