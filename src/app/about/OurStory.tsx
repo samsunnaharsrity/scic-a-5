@@ -46,13 +46,13 @@ export default function OurStory() {
 
             <div className="relative overflow-hidden rounded-3xl border border-zinc-200 dark:border-zinc-800 shadow-2xl">
 
-              <Image
-                src="/images/about-story.jpg"
-                alt="Our Story"
-                width={700}
-                height={500}
-                className="h-full w-full object-cover transition duration-500 hover:scale-105"
-              />
+<Image
+  src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e"
+  alt="AI Technology"
+  width={700}
+  height={500}
+  className="h-full w-full object-cover transition duration-500 hover:scale-105"
+/>
 
             </div>
 
