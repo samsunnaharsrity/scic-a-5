@@ -158,6 +158,11 @@ const userMenu: MenuItem[]=[
  href:"/dashboard/user/chat-history",
  icon:MessageSquare
 },
+{
+  label:"Create Agent",
+  href:"/dashboard/user/create-agent",
+  icon:Sparkles
+},
 
 {
   label:"My AI Agents",
@@ -165,11 +170,6 @@ const userMenu: MenuItem[]=[
   icon:Brain
 },
 
-{
-  label:"Create Agent",
-  href:"/dashboard/user/create-agent",
-  icon:Sparkles
-},
 
 {
   label:"AI Templates",
