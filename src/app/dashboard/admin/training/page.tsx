@@ -499,45 +499,23 @@ dark:text-white
 {
 training?.files.map((file,index)=>(
 
-<div
-key={index}
-className="
-flex
-items-center
-gap-3
-"
+<div key={index}
+className="flex items-center gap-3"
 >
 
-
-<FileText
-className="text-blue-500"
-/>
-
+<FileText className="text-blue-500"/>
 
 <div>
 
-<h3 className="
-font-semibold
-dark:text-white
-">
-
+<h3 className="font-semibold dark:text-white">
 {file.name}
-
 </h3>
 
-
-<p className="
-text-sm
-text-gray-500
-">
-
+<p className="text-sm text-gray-500">
 {file.type} • {file.size}
-
 </p>
 
-
 </div>
-
 
 </div>
 

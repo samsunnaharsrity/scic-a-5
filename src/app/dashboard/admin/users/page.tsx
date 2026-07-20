@@ -671,7 +671,7 @@ text-gray-400
 
 
 
-<td className="p-4">
+
 
 
 <td className="p-4">
@@ -695,7 +695,7 @@ text-xs
 </td>
 
 
-</td>
+
 
 
 
@@ -746,7 +746,7 @@ ${
 
 
 
-<td className="p-4">
+
 
 
 <td className="p-4 relative">
@@ -953,7 +953,7 @@ Unblock User
 </td>
 
 
-</td>
+
 
 
 

@@ -12,6 +12,7 @@ import {
 
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useDashboard } from "@/app/components/dashboardData/dashboardProvider";
 
 
 
@@ -25,6 +26,13 @@ totalCost:number;
 
 totalAgents:number;
 
+
+performance:{
+avgResponseTime:number;
+successRate:number;
+failedRequests:number;
+};
+
 growth?:{
 
 tokens:string;
@@ -34,6 +42,7 @@ requests:string;
 cost:string;
 
 };
+
 
 usage:{
 day:string;
@@ -54,9 +63,9 @@ const [loading,setLoading]=useState(true);
 
 
 
-// temporary user email
-const email="admin@gmail.com";
+const {session}=useDashboard();
 
+const email=session?.user?.email;
 
 
 useEffect(()=>{
@@ -93,6 +102,7 @@ setLoading(false);
 
 
 };
+if(!email) return;
 
 
 fetchAnalytics();
@@ -445,7 +455,313 @@ ${item.color}
 
 
 
+{/* AI Performance */}
 
+
+{/* AI Performance */}
+
+<div className="
+grid
+md:grid-cols-4
+gap-6
+">
+
+
+{/* Response Time */}
+
+<div className="
+rounded-2xl
+border
+dark:border-white/10
+bg-white
+dark:bg-white/5
+p-6
+">
+
+<div className="
+flex
+justify-between
+items-center
+">
+
+<p className="
+text-sm
+text-gray-500
+">
+Average Response
+</p>
+
+<Activity
+size={22}
+className="text-blue-500"
+/>
+
+</div>
+
+
+<h2 className="
+text-3xl
+font-bold
+mt-4
+dark:text-white
+">
+
+{analytics?.performance?.avgResponseTime || 0}s
+
+</h2>
+
+
+<p className="
+text-xs
+text-gray-400
+mt-2
+">
+
+AI processing speed
+
+</p>
+
+
+</div>
+
+
+
+
+
+{/* Success Rate */}
+
+<div className="
+rounded-2xl
+border
+dark:border-white/10
+bg-white
+dark:bg-white/5
+p-6
+">
+
+
+<div className="
+flex
+justify-between
+items-center
+">
+
+
+<p className="
+text-sm
+text-gray-500
+">
+
+Success Rate
+
+</p>
+
+
+<TrendingUp
+size={22}
+className="text-green-500"
+/>
+
+
+</div>
+
+
+
+<h2 className="
+text-3xl
+font-bold
+mt-4
+text-green-500
+">
+
+
+{analytics?.performance?.successRate || 0}%
+
+
+</h2>
+
+
+
+<p className="
+text-xs
+text-gray-400
+mt-2
+">
+
+Successful AI executions
+
+</p>
+
+
+
+</div>
+
+
+
+
+
+
+{/* Failed Requests */}
+
+<div className="
+rounded-2xl
+border
+dark:border-white/10
+bg-white
+dark:bg-white/5
+p-6
+">
+
+
+<div className="
+flex
+justify-between
+items-center
+">
+
+
+<p className="
+text-sm
+text-gray-500
+">
+
+Failed Requests
+
+</p>
+
+
+<Zap
+size={22}
+className="text-red-500"
+/>
+
+
+</div>
+
+
+
+
+<h2 className="
+text-3xl
+font-bold
+mt-4
+text-red-500
+">
+
+
+{analytics?.performance?.failedRequests || 0}
+
+
+</h2>
+
+
+
+
+<p className="
+text-xs
+text-gray-400
+mt-2
+">
+
+AI failures detected
+
+</p>
+
+
+
+</div>
+
+
+
+
+
+
+{/* AI Health */}
+
+<div className="
+rounded-2xl
+border
+dark:border-white/10
+bg-white
+dark:bg-white/5
+p-6
+">
+
+
+<div className="
+flex
+justify-between
+items-center
+">
+
+
+<p className="
+text-sm
+text-gray-500
+">
+
+AI Health
+
+</p>
+
+
+<Brain
+size={22}
+className="text-purple-500"
+/>
+
+
+</div>
+
+
+
+
+<h2 className="
+text-3xl
+font-bold
+mt-4
+text-purple-500
+">
+
+
+{
+analytics?.performance?.successRate &&
+analytics.performance.successRate >= 90
+?
+"Excellent"
+:
+analytics?.performance?.successRate &&
+analytics.performance.successRate >= 70
+?
+"Good"
+:
+"Needs Care"
+}
+
+
+</h2>
+
+
+
+
+<p className="
+text-xs
+text-gray-400
+mt-2
+">
+
+System reliability status
+
+</p>
+
+
+
+</div>
+
+
+
+
+</div>
 
 
 {/* Chart */}
