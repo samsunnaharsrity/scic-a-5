@@ -42,9 +42,9 @@ const fetchDashboard=async()=>{
 
 try{
 
- const {data}=await axios.get(
- `${process.env.NEXT_PUBLIC_API_URL}/api/userDashboard/${email}`
- );
+const {data}=await axios.get(
+`${process.env.NEXT_PUBLIC_API_URL}/api/userDashboard/${encodeURIComponent(email)}`
+);
 
 
  console.log("Dashboard Data:",data);
