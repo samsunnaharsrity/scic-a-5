@@ -126,7 +126,7 @@ const deleteAgent=async(id:string)=>{
 try{
 
 await axios.delete(
-`${process.env.NEXT_PUBLIC_API_URL}/api/agents`
+`${process.env.NEXT_PUBLIC_API_URL}/api/agents/${id}`
 );
 
 
