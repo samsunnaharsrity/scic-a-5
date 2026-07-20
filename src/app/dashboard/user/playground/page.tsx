@@ -85,7 +85,7 @@ tokens
 
 
 setResponse(
-data.reply
+  data.result
 );
 
 
