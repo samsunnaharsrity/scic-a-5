@@ -18,7 +18,9 @@ import toast from "react-hot-toast";
 export default function Playground(){
 
 
-const [model,setModel]=useState("Gemini 2.5 Flash");
+const [model,setModel]=useState(
+  "llama-3.1-8b-instant"
+);
 
 const [task,setTask]=useState(
 "Chat Assistant"
