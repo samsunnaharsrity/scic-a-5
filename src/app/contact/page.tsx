@@ -75,8 +75,8 @@ return (
             <h2 className="mb-8 text-3xl font-bold text-zinc-900 dark:text-white">Send us a Message</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
               {[
-                { label: "Full Name", type: "text", placeholder: "John Doe" },
-                { label: "Email", type: "email", placeholder: "john@example.com" },
+                { label: "Full Name", type: "text", placeholder: "Your Name" },
+                { label: "Email", type: "email", placeholder: "yourEmail@example.com" },
                 { label: "Subject", type: "text", placeholder: "How can we help?" },
               ].map((field) => (
                 <div key={field.label}>
