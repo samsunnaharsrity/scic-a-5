@@ -15,6 +15,7 @@ import {
 
 import axios from "axios";
 import {useEffect,useState} from "react";
+import { authClient } from "@/lib/auth-client";
 
 
 interface Agent{
@@ -40,6 +41,9 @@ const [showCreate,setShowCreate] = useState(false);
 const [openMenu,setOpenMenu] = useState<string | null>(null);
 
 const [editAgent,setEditAgent]=useState<Agent | null>(null);
+const {data:session}=authClient.useSession();
+
+const email=session?.user?.email;
 
 const [newAgent,setNewAgent] = useState({
 
@@ -54,22 +58,27 @@ icon:"🤖"
 
 useEffect(()=>{
 
+if(email){
 loadAgents();
+}
 
-},[]);
+},[email]);
 
 
 
 const loadAgents=async()=>{
 
+if(!email) return;
+
+
 try{
 
 const {data}=await axios.get(
-`${process.env.NEXT_PUBLIC_API_URL}/api/agents`
+`${process.env.NEXT_PUBLIC_API_URL}/api/agents/${email}`
 );
 
 
-setAgents(data);
+setAgents(data.agents);
 
 
 }catch(error){
@@ -90,23 +99,15 @@ await axios.post(
 
 `${process.env.NEXT_PUBLIC_API_URL}/api/agents`,
 
-newAgent
+{
+...newAgent,
+userEmail:email
+}
 
 );
 
 
 setShowCreate(false);
-
-setNewAgent({
-
-name:"",
-model:"GPT-5",
-status:"Active",
-tasks:0,
-icon:"🤖"
-
-});
-
 
 loadAgents();
 
@@ -116,7 +117,6 @@ loadAgents();
 console.log(error);
 
 }
-
 
 };
 
