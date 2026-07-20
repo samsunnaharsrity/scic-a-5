@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Save } from "lucide-react";
 import { uploadImage } from "@/lib/uploadImg";
+import ToolCardSkeleton from "@/app/components/skeletons/ToolCardSkeleton";
 
 export default function ProfilePage() {
   const { session, refreshSession } = useDashboard();
@@ -157,6 +158,28 @@ URL.createObjectURL(file)
 
 
 };
+
+
+
+
+if(loading){
+
+return (
+<section className="bg-slate-50 dark:bg-slate-950 min-h-screen py-10">
+<div className="max-w-6xl mx-auto px-4">
+<div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+{Array.from({length:8}).map((_,index)=>(
+<ToolCardSkeleton key={index}/>
+))}
+
+</div>
+</div>
+</section>
+)
+
+}
+
 
   return (
     <div className="grid gap-8 lg:grid-cols-3 mt-20 text-gray-900

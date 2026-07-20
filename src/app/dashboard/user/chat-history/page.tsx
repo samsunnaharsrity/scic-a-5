@@ -13,15 +13,17 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
+import Link from "next/link";
 
 
 interface Chat {
 
-_id:string;
-title:string;
-message:string;
-tool:string;
-createdAt:string;
+  _id?: string;
+  id?: string;
+  title: string;
+  message: string;
+  tool: string;
+  createdAt: string;
 
 }
 
@@ -36,10 +38,10 @@ const router = useRouter();
 const [chats,setChats] = useState<Chat[]>([]);
 const [loading,setLoading] = useState(true);
 const [search,setSearch] = useState("");
+
 const { data: session } = authClient.useSession();
 
 const email = session?.user?.email;
-
 
 
 
@@ -117,33 +119,38 @@ fetchChats();
 
 
 
-const deleteChat = async(email:string)=>{
+const deleteChat = async(id:string)=>{
 
 
 try{
 
 
-const confirmDelete =
-confirm("Delete all conversations?");
+const confirmDelete = confirm(
+"Delete this conversation?"
+);
 
 
 if(!confirmDelete) return;
 
 
 
-const res = await axios.delete(
+await axios.delete(
 
-`${process.env.NEXT_PUBLIC_API_URL}/api/chat-history/${email}`
+`${process.env.NEXT_PUBLIC_API_URL}/api/chat-history/${id}`
 
 );
 
 
 
-console.log(res.data);
+setChats(prev=>
 
+prev.filter(chat=>
 
+(chat._id || chat.id) !== id
 
-setChats([]);
+)
+
+);
 
 
 
@@ -166,13 +173,18 @@ error.response?.data || error.message
 
 
 
+
 const filteredChats = chats.filter(chat=>
+
 
 chat.title
 ?.toLowerCase()
 .includes(search.toLowerCase())
 
+
 );
+
+
 
 
 
@@ -203,6 +215,7 @@ Chat History
 </h1>
 
 
+
 <p className="
 mt-2
 text-slate-500
@@ -215,6 +228,7 @@ View and continue your previous AI conversations.
 
 
 </div>
+
 
 
 
@@ -242,11 +256,15 @@ className="text-slate-400"
 
 <input
 
+
 value={search}
+
 
 onChange={(e)=>setSearch(e.target.value)}
 
+
 placeholder="Search conversations..."
+
 
 className="
 outline-none
@@ -255,11 +273,13 @@ w-full
 dark:text-white
 "
 
+
 />
 
 
-
 </div>
+
+
 
 
 
@@ -282,11 +302,13 @@ size={35}
 className="animate-spin"
 />
 
+
 </div>
 
 
 
 :
+
 
 filteredChats.length===0 ?
 
@@ -311,12 +333,19 @@ No conversations found.
 
 {
 
-filteredChats.map(chat=>(
+filteredChats.map((chat)=>{
 
+
+const chatId = chat._id || chat.id;
+
+
+return (
 
 <div
 
-key={chat._id}
+
+key={chatId}
+
 
 className="
 bg-white
@@ -331,7 +360,9 @@ hover:shadow-xl
 transition
 "
 
+
 >
+
 
 
 <div className="
@@ -342,6 +373,7 @@ gap-5
 
 
 <div className="flex gap-4">
+
 
 
 <div className="
@@ -356,7 +388,9 @@ justify-center
 text-violet-600
 ">
 
+
 <MessageSquare/>
+
 
 </div>
 
@@ -367,15 +401,19 @@ text-violet-600
 <div>
 
 
+
 <h2 className="
 font-bold
 text-lg
 dark:text-white
 ">
 
+
 {chat.title}
 
+
 </h2>
+
 
 
 
@@ -386,9 +424,14 @@ text-slate-500
 mt-1
 ">
 
+
 {chat.message}
 
+
 </p>
+
+
+
 
 
 
@@ -402,11 +445,14 @@ text-slate-400
 ">
 
 
+
 <span>
 
 {chat.tool}
 
 </span>
+
+
 
 
 
@@ -421,8 +467,12 @@ gap-1
 <Clock size={14}/>
 
 
-{new Date(chat.createdAt)
-.toLocaleDateString()}
+
+{
+new Date(chat.createdAt)
+.toLocaleDateString()
+}
+
 
 
 </span>
@@ -431,10 +481,12 @@ gap-1
 </div>
 
 
+
 </div>
 
 
 </div>
+
 
 
 
@@ -447,7 +499,10 @@ gap-1
 
 <button
 
-onClick={()=>deleteChat(email!)}
+
+onClick={()=>deleteChat(chatId!)}
+
+
 className="
 p-2
 rounded-lg
@@ -455,9 +510,12 @@ hover:bg-red-50
 text-red-500
 "
 
+
 >
 
+
 <Trash2 size={18}/>
+
 
 </button>
 
@@ -465,9 +523,12 @@ text-red-500
 
 
 
-<button
 
-onClick={()=>router.push(`/dashboard/chat/${chat._id}`)}
+
+
+<Link
+
+href={`/dashboard/user/chat`}
 
 className="
 flex
@@ -487,11 +548,8 @@ Continue
 
 <ArrowRight size={16}/>
 
-</button>
+</Link>
 
-
-
-</div>
 
 
 
@@ -500,18 +558,6 @@ Continue
 
 
 </div>
-
-
-))
-
-
-}
-
-
-</div>
-
-
-}
 
 
 
@@ -519,5 +565,22 @@ Continue
 
 
 )
+
+})
+
+}
+
+
+</div>
+
+
+}
+
+
+</div>
+
+
+)
+
 
 }

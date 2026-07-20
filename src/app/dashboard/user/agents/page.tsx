@@ -37,18 +37,18 @@ try{
 
 const {data}=await axios.get(
 
-`${process.env.NEXT_PUBLIC_API_URL}/api/agents`
+`${process.env.NEXT_PUBLIC_API_URL}/api/agents/${session.user.email}`
 
 );
 
 
 console.log(
-"ALL AGENTS RESPONSE:",
+"MY AGENTS RESPONSE:",
 data
 );
 
 
-setAgents(data);
+setAgents(data.agents || []);
 
 
 }
