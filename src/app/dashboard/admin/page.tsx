@@ -28,9 +28,8 @@ const loadDashboard=async()=>{
 
 try{
 
-const res =
-await axios.get(
-"NEXT_PUBLIC_API_URL/api/admin/dashboard"
+const res = await axios.get(
+`${process.env.NEXT_PUBLIC_API_URL}/api/admin/dashboard`
 );
 
 
