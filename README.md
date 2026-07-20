@@ -1,36 +1,104 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🤖 AgentFlow AI Platform
 
-## Getting Started
+A production-ready **Full Stack Agentic AI Application** that empowers users with intelligent AI agents, AI-powered tools, document analysis, content generation, and conversational AI assistance.
 
-First, run the development server:
+Built with modern web technologies including **Next.js, TypeScript, Node.js, Express.js, MongoDB, and LLM APIs**.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Live Demo
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+🔗 Frontend: https://scic-a-5.vercel.app 
+🔗 Backend API: https://scic-a-5-server-xi.vercel.app
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+# ✨ Features
 
-To learn more about Next.js, take a look at the following resources:
+## 🤖 AI Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 💬 AI Chat Assistant
+- Intelligent conversational AI assistant
+- Context-aware responses
+- Real-time user interaction
+- Powered by LLM technology
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 📝 AI Content Generator
+- Generate blogs, articles, and creative content
+- AI-powered writing assistance
+- Custom prompt-based generation
 
-## Deploy on Vercel
+### 📄 AI Document Intelligence
+- Upload and analyze documents
+- Extract important information
+- AI-based document understanding
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 🧠 AI Recommendation System
+- Personalized AI suggestions
+- Smart content recommendations
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+# 👤 User Features
+
+✅ User Authentication  
+✅ Secure Dashboard  
+✅ AI Tool Explorer  
+✅ Personal AI Workspace  
+✅ Chat History Management  
+✅ Profile Management  
+✅ Subscription Management  
+✅ Usage Tracking  
+
+---
+
+# 🛠️ Admin Features
+
+✅ Admin Dashboard  
+✅ User Management  
+✅ AI Usage Analytics  
+✅ Revenue Monitoring  
+✅ System Settings  
+✅ Platform Statistics  
+
+---
+
+# 🏗️ Technology Stack
+
+## Frontend
+
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS
+- TanStack Query
+- Axios
+- Recharts
+- Lucide React
+
+---
+
+## Backend
+
+- Node.js
+- Express.js
+- TypeScript
+- MongoDB
+- JWT Authentication
+- REST API
+
+---
+
+## AI Integration
+
+Supported AI Models:
+
+- Google Gemini
+- OpenAI GPT
+- Claude
+- Groq
+- HuggingFace Models
+
+---
+
+# 📂 Project Structure
