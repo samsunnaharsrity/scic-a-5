@@ -30,7 +30,7 @@ try{
 
 const res =
 await axios.get(
-"http://localhost:8000/api/admin/dashboard"
+"NEXT_PUBLIC_API_URL/api/admin/dashboard"
 );
 
 
