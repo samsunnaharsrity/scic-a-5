@@ -68,17 +68,14 @@ loadAgents();
 
 const loadAgents=async()=>{
 
-if(!email) return;
-
-
 try{
 
 const {data}=await axios.get(
-`${process.env.NEXT_PUBLIC_API_URL}/api/agents/${email}`
+`${process.env.NEXT_PUBLIC_API_URL}/api/agents`
 );
 
 
-setAgents(data.agents);
+setAgents(data);
 
 
 }catch(error){
@@ -99,15 +96,23 @@ await axios.post(
 
 `${process.env.NEXT_PUBLIC_API_URL}/api/agents`,
 
-{
-...newAgent,
-userEmail:email
-}
+newAgent
 
 );
 
 
 setShowCreate(false);
+
+setNewAgent({
+
+name:"",
+model:"GPT-5",
+status:"Active",
+tasks:0,
+icon:"🤖"
+
+});
+
 
 loadAgents();
 
@@ -117,6 +122,7 @@ loadAgents();
 console.log(error);
 
 }
+
 
 };
 
