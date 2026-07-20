@@ -39,7 +39,7 @@ export default function AboutHero() {
           {/* Buttons */}
           <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
             <Link
-              href="/explore"
+              href="/Explore"
               className="inline-flex items-center justify-center gap-2 rounded-xl bg-violet-600 px-8 py-4 font-semibold transition hover:bg-violet-700"
             >
               Explore AI Agents

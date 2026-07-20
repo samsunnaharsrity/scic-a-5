@@ -27,27 +27,32 @@ const blogs = [
     title: "Getting Started with Agentic AI",
     description:
       "Learn how autonomous AI agents are changing software development and business automation.",
-    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995",
+    image:
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995",
     category: "Agentic AI",
     date: "July 15, 2026",
     read: "5 min read",
   },
+
   {
     id: 2,
     title: "Top 10 AI Tools for Developers",
     description:
       "Discover the best AI-powered tools that can improve your workflow and productivity.",
-    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3",
+    image:
+      "https://images.unsplash.com/photo-1518770660439-4636190af475",
     category: "AI",
     date: "July 10, 2026",
     read: "7 min read",
   },
+
   {
     id: 3,
     title: "Building AI Workflows with Next.js",
     description:
       "Create scalable AI applications using Next.js, TypeScript and modern APIs.",
-    image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c",
+    image:
+      "https://images.unsplash.com/photo-1555949963-aa79dcee981c",
     category: "Tutorial",
     date: "July 8, 2026",
     read: "6 min read",
@@ -137,14 +142,14 @@ return (
       {/* Featured */}
       <section className="container mx-auto px-6 py-10">
         <div className="grid gap-10 lg:grid-cols-2 items-center">
-{/* 
+
           <Image
             src={blogs[0].image}
             alt={blogs[0].title}
             width={700}
             height={500}
             className="rounded-3xl object-cover"
-          /> */}
+          />
 
           <div>
             <span className="rounded-full bg-violet-100 px-4 py-1 text-sm font-medium text-violet-600">
