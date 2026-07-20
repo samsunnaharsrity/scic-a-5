@@ -29,7 +29,6 @@ export default function TeamSection() {
     <section className="py-20 bg-white dark:bg-zinc-950">
       <div className="container mx-auto px-6">
 
-        {/* Heading */}
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="mt-5 text-4xl font-bold text-zinc-900 dark:text-white">
             Meet the Team Behind AgenticAI
@@ -41,23 +40,29 @@ export default function TeamSection() {
           </p>
         </div>
 
-        {/* Team Cards */}
+
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {team.map((member) => (
             <div
               key={member.name}
               className="group rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300"
             >
+
               <div className="relative h-72 overflow-hidden">
-                {/* <Image
+
+                <Image
                   src={member.image}
                   alt={member.name}
                   fill
+                  sizes="(max-width: 768px) 100vw, 25vw"
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
-                /> */}
+                />
+
               </div>
 
+
               <div className="p-6 text-center">
+
                 <h3 className="text-xl font-semibold text-zinc-900 dark:text-white">
                   {member.name}
                 </h3>
@@ -66,7 +71,9 @@ export default function TeamSection() {
                   {member.role}
                 </p>
 
+
                 <div className="mt-6 flex justify-center gap-4">
+
                   <a
                     href="#"
                     className="rounded-full bg-zinc-100 dark:bg-zinc-800 p-2 hover:bg-violet-600 hover:text-white transition"
@@ -87,8 +94,11 @@ export default function TeamSection() {
                   >
                     <FaTwitterSquare className="w-5 h-5" />
                   </a>
+
                 </div>
+
               </div>
+
             </div>
           ))}
         </div>
